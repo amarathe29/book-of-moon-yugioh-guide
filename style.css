@@ -303,3 +303,32 @@ body.card-detail-open,body.combo-pile-open{overflow:hidden}
 
 
 .deck-facts{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 14px}.deck-fact{border:1px solid var(--accent,#edc67766);border-radius:999px;padding:5px 9px;color:var(--muted,#aab6c8);font-size:11px;line-height:1.35}
+
+
+/* Consistent upright page titles. */
+h1 em{font-style:normal}
+/* Narrow-screen combo layout: stable tabs, stacked summaries, compact controls. */
+@media(max-width:650px){
+  .page-main{padding-top:16px}
+  .page-hero{padding:34px 6vw 18px}
+  .page-hero h1{font-size:clamp(2.45rem,12vw,3.5rem);line-height:1.02;letter-spacing:-.055em;margin:8px 0 12px}
+  .combo-tutorial{margin-top:24px;scroll-margin-top:18px}
+  .combo-tabs{display:flex;overflow-x:auto;gap:8px;margin:12px 0;padding:2px 2px 8px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  .combo-tabs button{flex:0 0 min(76vw,250px);min-height:50px;padding:11px 12px;font-size:.84rem;scroll-snap-align:start}
+  .line-card{padding:14px;border-radius:14px}
+  .opening-hand,.line-condition,.line-result{grid-template-columns:1fr;gap:4px;padding:11px 12px;font-size:.9rem}
+  .line-step{grid-template-columns:1fr;gap:5px;padding:11px}
+  .line-step span{font-size:.66rem}
+  .combo-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .combo-actions .step-count{grid-column:1/-1;grid-row:1;text-align:center}
+  .combo-actions button{min-height:44px;padding:9px 8px;font-size:.84rem}
+  .deck-section-jumps{grid-template-columns:1fr 1fr}
+  .deck-section-jumps a{min-height:44px;padding:8px 9px;font-size:.72rem}
+  .decklist-gallery{scroll-margin-top:18px}
+}
+@media(max-width:380px){
+  .combo-tabs button{flex-basis:82vw}
+  .line-card{padding:11px}
+  .combo-actions{grid-template-columns:1fr}
+  .combo-actions .step-count{grid-column:auto;grid-row:auto}
+}
