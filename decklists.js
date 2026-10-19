@@ -106,7 +106,7 @@ function comboVisualCardMarkup(entry, context) {
     : '<span'+common+' combo-generic-frame" data-generic-frame="'+escapeCardText(frame)+'">';
   const art=specific
     ? '<img class="deck-card-image" data-card-name="'+escapeCardText(name)+'" alt="'+escapeCardText(name)+' card image" loading="lazy"><span class="deck-card-image-fallback" aria-hidden="true">'+escapeCardText(name.split(/\s+/).slice(0,2).map(x=>x[0]||'').join(''))+'</span>'
-    : isDiscardCard?'<img class="combo-card-back-art" src="https://static.wikia.nocookie.net/yugioh/images/e/e5/Back-EN.png/revision/latest?cb=20100726082128" alt="Yu-Gi-Oh! card back">':'<span class="combo-generic-art" aria-hidden="true"></span>'+(meta?'<span class="combo-generic-meta">'+escapeCardText(meta)+'</span>':'');
+    : isDiscardCard?'<img class="combo-card-back-art" src="https://static.wikia.nocookie.net/yugioh/images/e/e5/Back-EN.png/revision/latest?cb=20100726082128" alt="Yu-Gi-Oh! card back" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="combo-card-back-fallback" hidden aria-hidden="true"></span>':'<span class="combo-generic-art" aria-hidden="true"></span>'+(meta?'<span class="combo-generic-meta">'+escapeCardText(meta)+'</span>':'');
   const button=specific
     ? '<button type="button" class="combo-visual-card '+context+'" data-card-name="'+escapeCardText(name)+'" aria-label="View card details for '+escapeCardText(name)+'" aria-haspopup="dialog" aria-controls="card-detail-overlay">'
     : '<button type="button" class="combo-visual-card combo-generic-card '+context+'" data-generic-preview data-generic-label="'+escapeCardText(displayName)+'" data-generic-type="'+escapeCardText(item.type||'Any card')+'" data-generic-frame="'+escapeCardText(frame)+'" data-generic-level="'+escapeCardText(item.level||'')+'" data-generic-scale="'+escapeCardText(item.scale||'')+'" data-generic-requirements="'+escapeCardText(item.requirements||'This placeholder represents a card with no specific name or artwork.')+'" aria-label="View type and requirements for '+escapeCardText(displayName)+'" aria-haspopup="dialog" aria-controls="card-detail-overlay">';
@@ -122,7 +122,7 @@ function comboStartingHandMarkup(entries) {
 function pileCount(entries) { return (entries||[]).reduce((sum,entry)=>sum+Math.max(1,Number(entry&&entry.qty)||1),0); }
 function pileIconMarkup(kind, entries, topEntry) {
   const back='https://static.wikia.nocookie.net/yugioh/images/e/e5/Back-EN.png/revision/latest?cb=20100726082128';
-  if(kind==='main'||(kind==='extra'&&!topEntry))return '<img class="combo-pile-top-image" src="'+back+'" alt="Yu-Gi-Oh! card back">';
+  if(kind==='main'||(kind==='extra'&&!topEntry))return '<img class="combo-pile-top-image" src="'+back+'" alt="Yu-Gi-Oh! card back" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="combo-card-back-fallback" hidden aria-hidden="true"></span>';
   if(topEntry&&topEntry.card)return '<img class="combo-pile-top-image deck-card-image" data-card-name="'+escapeCardText(topEntry.card)+'" alt="Most recent card: '+escapeCardText(topEntry.card)+'" loading="lazy"><span class="deck-card-image-fallback" aria-hidden="true">'+escapeCardText(topEntry.card.split(/\s+/).slice(0,2).map(x=>x[0]||'').join(''))+'</span>';
   if(topEntry)return '<span class="combo-pile-top-generic combo-generic-frame" data-generic-frame="'+escapeCardText(topEntry.frame||'any')+'"><span class="combo-generic-art"></span>'+(topEntry.scale||topEntry.level?'<span class="combo-generic-meta">'+escapeCardText(topEntry.scale||topEntry.level)+'</span>':'')+'</span>';
   return '<span class="combo-zone-empty">Empty</span>';
@@ -162,8 +162,10 @@ function comboFieldBoardMarkup(field, heading, note, handEntries) {
   const handMarkup=Array.isArray(handEntries)?'<section class="combo-field-hand" aria-label="Hand after '+escapeCardText(heading)+'"><div class="combo-field-hand-heading"><b>Hand</b><span>'+pileCount(handEntries)+' '+(pileCount(handEntries)===1?'card':'cards')+'</span></div><div class="combo-field-hand-cards">'+(handEntries.length?comboStartingHandMarkup(handEntries):'<span class="combo-hand-empty">No tracked cards in hand</span>')+'</div></section>':'';
   return '<section class="combo-visual-panel combo-field-panel"><div class="combo-visual-panel-heading"><h3>'+heading+'</h3>'+(note?'<p>'+escapeCardText(note)+'</p>':'')+'</div><div class="combo-field-grid" role="group" aria-label="'+heading+' board state">'+html+'</div>'+handMarkup+'</section>';
 }
-function comboTextOnlyMarkup(combo, stepIndex) {
-  return '<div class="combo-text-only"><div class="opening-hand"><b>Starting hand</b><span>'+escapeCardText(combo.hand)+'</span></div>'+
+function comboTextOnlyMarkup(combo, stepIndex, handVisual=[]) {
+  const discardCount=(handVisual||[]).filter(item=>item&&!item.card&&/discard/i.test((item.label||'')+' '+(item.requirements||''))).reduce((sum,item)=>sum+Math.max(1,Number(item.qty)||1),0);
+  const backArt=discardCount?'<div class="combo-mobile-cardbacks" role="img" aria-label="Card-back placeholders for generic discard cards">'+Array.from({length:discardCount},()=>'<span class="combo-mobile-cardback"><img class="combo-card-back-art" src="https://static.wikia.nocookie.net/yugioh/images/e/e5/Back-EN.png/revision/latest?cb=20100726082128" alt="Yu-Gi-Oh! card back" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="combo-card-back-fallback" hidden aria-hidden="true"></span></span>').join('')+'</div>':'';
+  return '<div class="combo-text-only"><div class="opening-hand"><b>Starting hand</b><span>'+escapeCardText(combo.hand)+'</span>'+backArt+'</div>'+
     '<div class="line-condition"><b>Before you start</b><span>'+escapeCardText(combo.condition)+'</span></div><div class="step-grid">'+
     combo.steps.map((step,i)=>'<article class="line-step '+(i===stepIndex?'current':'')+'"><span>STEP '+(i+1)+'</span><p>'+escapeCardText(step)+'</p></article>').join('')+
     '</div><div class="line-result"><b>Line result</b><span>'+escapeCardText(combo.result)+'</span></div><div class="combo-actions">'+
@@ -215,7 +217,7 @@ function comboVisualMarkup(combo, visual, stepIndex) {
     (step.opponentAfter?comboFieldBoardMarkup(step.opponentAfter,'Opponent field after step '+(stepIndex+1),'Opponent cards remaining after this step.'): '')+
     '<div class="line-result"><b>Line result</b><span>'+escapeCardText(combo.result)+'</span></div><div class="combo-actions">'+
     '<button type="button" class="line-prev" '+(stepIndex===0?'disabled':'')+'>← Previous</button><span class="step-count">STEP '+(stepIndex+1)+' OF '+combo.steps.length+'</span>'+
-    '<button type="button" class="line-next next">'+(stepIndex===combo.steps.length-1?'Restart line ↺':'Next step →')+'</button></div></div>'+comboTextOnlyMarkup(combo,stepIndex);
+    '<button type="button" class="line-next next">'+(stepIndex===combo.steps.length-1?'Restart line ↺':'Next step →')+'</button></div></div>'+comboTextOnlyMarkup(combo,stepIndex,visual.hand);
 }
 function renderDeck() {
   const deck=decks[activeDeck];
