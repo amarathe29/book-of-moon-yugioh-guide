@@ -22,39 +22,39 @@
   <main class="page-main">
     <section class="page-hero">
       <h1>Advanced<br><em>Guide</em></h1>
-      <p class="hero-lede">A practical guide to reading effects and resolving tricky interactions: timing, targeting, costs, negation, Chains, Spell Speeds, and the words that determine how effects resolve.</p>
+      <div class="hero-tags" aria-label="Guide topics"><span>Effect types</span><span>Timing</span><span>Targeting</span><span>Costs</span><span>Chains</span><span>Spell Speed</span></div>
     </section>
     <section class="advanced-section section-shell" aria-label="Advanced Yu-Gi-Oh! rules">
-      <div class="section-heading advanced-nav-heading"><div><h2>Advanced topics</h2><p>Choose a topic or move through the guide one section at a time.</p></div></div>
+      <div class="section-heading advanced-nav-heading"><div><h2>Topics</h2></div></div>
       <nav id="advanced-nav" class="chapter-nav" role="tablist" aria-label="Advanced Guide topics"></nav>
 
       <section id="effect-types" class="advanced-topic" data-page-label="Effect types">
-        <div class="section-heading"><div><h2>Recognize the effect type</h2><p>Effect type tells you when an effect can be used and whether it starts a Chain.</p></div></div>
+        <div class="section-heading"><div><h2>Recognize the effect type</h2></div></div>
         <div class="effect-grid">
-          <article class="effect-card"><h3>Trigger Effects</h3><p>These become eligible when a stated event happens, such as a Summon, a card being sent to the GY, an attack declaration, or a named Phase. Most are Spell Speed 1. If their event happens while a Chain is resolving, wait until that entire Chain finishes; eligible Trigger Effects can then be placed on a new Chain.</p><p><b>Optional:</b> “You can” means you may choose whether to activate. <b>Mandatory:</b> if a mandatory Trigger Effect’s condition is met, it must be activated at its next legal opportunity unless a rule or another effect prevents it. Mandatory means required to activate, not guaranteed to resolve.</p></article>
-          <article class="effect-card"><h3>Ignition Effects</h3><p>You choose when to activate these during your own Main Phase while the game is in an open state. They are not responses to an event. Activating one starts a Chain, and the opponent may respond with an eligible fast effect.</p><p>Look for an effect you deliberately use to build your board or pay a cost, without “(Quick Effect)” or an event trigger. Check the card’s text and rulings if the type is unclear.</p></article>
-          <article class="effect-card"><h3>Quick Effects</h3><p>Modern card text labels these “(Quick Effect).” They are generally Spell Speed 2 and may be used during either player’s turn when their conditions and fast-effect timing allow. They start a Chain.</p><p>A Quick Effect is not a Trigger Effect. A Trigger Effect waits for its listed event; a Quick Effect is a fast action you choose to activate at a legal window.</p></article>
-          <article class="effect-card"><h3>Continuous Effects</h3><p>These apply while the card is face-up and its condition is met. The ongoing effect does not activate and does not start a Chain.</p><p>Activating a Continuous Spell or Trap is different: activating the card starts a Chain. If it resolves face-up, its continuous effect then applies without creating new Chain Links.</p></article>
+          <article class="effect-card"><h3>Trigger Effects</h3><p>A listed event makes the effect eligible. Most are Spell Speed 1. If the event happens during a resolving Chain, activate after that Chain finishes.</p><p><b>Optional:</b> “You can” lets you decline. A mandatory effect activates at its next legal opportunity when its condition is met; that does not guarantee it will resolve.</p></article>
+          <article class="effect-card"><h3>Ignition Effects</h3><p>Activate during your Main Phase in an open state. It starts a Chain; the opponent may respond.</p><p>No “(Quick Effect)” label or listed event? Check the card text and rulings to identify the effect type.</p></article>
+          <article class="effect-card"><h3>Quick Effects</h3><p>Labeled “(Quick Effect),” these are generally Spell Speed 2. Activate on either turn when legal; they start a Chain.</p><p>Unlike a Trigger Effect, a Quick Effect uses a legal fast-effect window instead of waiting for a listed event.</p></article>
+          <article class="effect-card"><h3>Continuous Effects</h3><p>Applies while face-up and its condition is met; ongoing application does not start a Chain.</p><p>Activating a Continuous Spell/Trap starts a Chain. After it resolves, its ongoing effect applies without new Chain Links.</p></article>
         </div>
       </section>
 
       <section id="trigger-timing" class="advanced-topic" data-page-label="If vs. when">
-        <div class="section-heading"><div><h2>“If” vs. “when”: did the event happen last?</h2><p>This mainly matters for optional Trigger Effects with strict timing language.</p></div></div>
+        <div class="section-heading"><div><h2>“If” vs. “when”: did the event happen last?</h2></div></div>
         <div class="timing-panel"><div class="timing-copy"><h3>Optional “When … you can”</h3><p>The listed event generally must be the last thing that happened before the effect gets its chance to activate. If another action happens afterward, the effect may miss its timing.</p><h3>Optional “If … you can”</h3><p>These effects generally do not have that same “last thing” restriction. They can usually activate after the Chain finishes if their condition was met and the card remains in the required location. Other activation requirements and rulings still apply.</p></div><div class="timeline"><div class="timeline-head">Example: one resolving effect says</div><div class="timeline-step"><b>1</b><span>Special Summon a monster</span></div><div class="timeline-arrow">↓ then</div><div class="timeline-step"><b>2</b><span>Draw 1 card</span></div><div class="timeline-result"><b>Last event: draw</b><span>The Summon was followed by another action. An optional “When this monster is Summoned: You can …” effect may miss timing. An optional “If this monster is Summoned: You can …” effect can generally activate after the Chain, if its other requirements are met.</span></div></div></div>
         <details class="advanced-detail"><summary>What about a mandatory “When” effect?</summary><p>The classic “miss timing” restriction concerns optional “When … you can” effects. A mandatory Trigger Effect does not use that same player-choice restriction. Still check that its trigger condition was met and that it is allowed to activate.</p></details>
       </section>
 
       <section id="targeting" class="advanced-topic" data-page-label="Targeting">
-        <div class="section-heading"><div><h2>Targeting vs. non-targeting</h2><p>Targeting is a rules term. It determines when you choose a card and what must be legal at activation.</p></div></div>
+        <div class="section-heading"><div><h2>Targeting vs. non-targeting</h2></div></div>
         <div class="effect-grid">
           <article class="effect-card"><h3>Targeting effect</h3><p>Modern TCG text uses the word <b>target</b> when an effect targets. For an activated effect, you choose a legal target during activation, before the Chain resolves. When a semicolon appears, targeting is usually written before it alongside other activation procedures.</p><p><b>Example:</b> “Target 1 card on the field; destroy it.” You choose the card as you activate the effect. If it moves or changes before resolution, read the resolving text and check the official ruling to see what still applies.</p></article>
           <article class="effect-card"><h3>Non-targeting effect</h3><p>If the effect does not target, you do not select the affected card during activation. The effect’s controller generally chooses a legal card as the effect resolves, following its instructions.</p><p><b>Example:</b> “Destroy 1 card on the field.” With no targeting instruction, the card is chosen during resolution. That can matter if the field changes while players are adding effects to the Chain.</p></article>
         </div>
-        <div class="callout"><strong>Check the current wording</strong>Older printings may use wording that predates current card text, and some cards have specific rulings. Use the current official card database and the card’s FAQ when the printed wording is unclear. “Choose” or “select” alone is not a safe shortcut for deciding whether an older card targets.</div>
+        <div class="callout"><strong>Check the current wording</strong>Older wording can differ. Check current text and rulings; “choose” or “select” alone does not establish targeting.</div>
       </section>
 
       <section id="costs" class="advanced-topic" data-page-label="Costs & effects">
-        <div class="section-heading"><div><h2>Costs vs. effects</h2><p>Separate what you do to activate an effect from what the effect does when it resolves.</p></div></div>
+        <div class="section-heading"><div><h2>Costs vs. effects</h2></div></div>
         <div class="effect-grid">
           <article class="effect-card"><h3>Before the semicolon: activation</h3><p>When a card uses a colon and semicolon, the colon introduces the activation condition and the semicolon separates activation procedures from resolution. Actions before the semicolon—such as paying LP, discarding, Tributing, or targeting—are performed at activation when the text requires them.</p><p>Those costs are paid even if the activation or effect is later negated. They are not refunded, and opponents respond to the activation—not to the act of paying the cost itself.</p></article>
           <article class="effect-card"><h3>After the semicolon: resolution</h3><p>The instructions after the semicolon are what the effect does as its Chain Link resolves. If a card says “Discard 1 card; draw 2 cards,” the discard is paid at activation and the draw happens only when the effect resolves successfully.</p><p>Not every card has a semicolon, and older text may be formatted differently. Verify exact wording in the official card database.</p></article>
@@ -62,7 +62,7 @@
       </section>
 
       <section id="negation" class="advanced-topic" data-page-label="Negation">
-        <div class="section-heading"><div><h2>Negating an activation vs. negating an effect</h2><p>Read precisely what the response says it negates.</p></div></div>
+        <div class="section-heading"><div><h2>Negating an activation vs. negating an effect</h2></div></div>
         <div class="effect-grid">
           <article class="effect-card"><h3>Negate the activation</h3><p>This stops the card or effect from being successfully activated. The Chain Link does not resolve as an activated effect. A response may also say to destroy the card, but destruction is a separate instruction—do not assume every activation negation destroys it.</p></article>
           <article class="effect-card"><h3>Negate the effect</h3><p>The activation was successful, but the activated effect is prevented from applying as it resolves. The card was still activated; the negation changes what happens to that effect.</p></article>
@@ -71,7 +71,7 @@
       </section>
 
       <section id="chains" class="advanced-topic" data-page-label="Chains & Spell Speed">
-        <div class="section-heading"><div><h2>Chains &amp; Spell Speed</h2><p>Chains decide the order of responses and resolution. New Chain Links resolve in reverse order.</p></div></div>
+        <div class="section-heading"><div><h2>Chains &amp; Spell Speed</h2></div></div>
         <div class="effect-grid">
           <article class="effect-card"><h3>Spell Speed 1</h3><p>Includes most Normal, Continuous, Equip, Field, Ritual, and Normal Spell activations, plus Ignition, Trigger, and Flip monster effects. These generally cannot be chained to another effect. Simultaneous Spell Speed 1 Trigger Effects are handled in a special Chain-building process.</p></article>
           <article class="effect-card"><h3>Spell Speed 2</h3><p>Includes Quick Effects, Quick-Play Spells, and Normal or Continuous Trap activations and effects. These can generally respond to Spell Speed 1 or 2 effects when their activation conditions and timing allow.</p></article>
@@ -81,14 +81,14 @@
       </section>
 
       <section id="conjunctions" class="advanced-topic" data-page-label="Conjunctions">
-        <div class="section-heading"><div><h2>“Then,” “also,” “and if you do,” and “and”</h2><p>These conjunctions describe whether actions happen in sequence or at the same time, and whether one action depends on another.</p></div></div>
+        <div class="section-heading"><div><h2>“Then,” “also,” “and if you do,” and “and”</h2></div></div>
         <div class="effect-grid">
           <article class="effect-card"><h3>Then</h3><p>The actions happen in sequence: do A, then B. A must happen for B to happen. If both occur, B is the last thing to happen.</p></article>
           <article class="effect-card"><h3>Also</h3><p>The actions happen at the same time, and neither depends on the other. Apply as much as possible.</p></article>
           <article class="effect-card"><h3>And if you do</h3><p>The actions are treated as simultaneous for timing, but A must happen for B to happen. If A does not happen, stop; if B cannot happen, A still happens.</p></article>
           <article class="effect-card"><h3>And</h3><p>The actions are treated as simultaneous, and both are required. If you cannot do both, you do neither. This wording is less common; use the exact card text and ruling.</p></article>
         </div>
-      <div class="callout advanced-routine"><strong>Use this routine when a ruling gets tricky</strong>Read the exact current text. Identify the activation condition, cost, target, and resolution. Ask whether the effect starts a Chain, who may respond, and what the conjunction says about timing. Then apply each Chain Link backward and consult the official card FAQ if the interaction remains unclear.</div>
+      <div class="callout advanced-routine"><strong>Ruling check</strong><ol><li>Read current text.</li><li>Mark condition, cost, target, resolution.</li><li>Build the Chain; resolve backward.</li><li>Check the official FAQ if unclear.</li></ol></div>
       <p class="advanced-sources">Official references: <a href="https://www.yugioh-card.com/eu/play/understanding-card-text/part-3-conditions-activations-and-effects/" target="_blank" rel="noreferrer">Conditions, Activations, and Effects</a> · <a href="https://www.yugioh-card.com/eu/play/understanding-card-text/part-4-the-clues-on-your-cards/" target="_blank" rel="noreferrer">The Clues on Your Cards</a> · <a href="https://www.yugioh-card.com/eu/play/understanding-card-text/part-7-conjunction-functions/" target="_blank" rel="noreferrer">Conjunction Functions</a> · <a href="https://www.yugioh-card.com/en/play/advanced-rules/" target="_blank" rel="noreferrer">Fast Effect Timing</a> · <a href="https://www.yugioh-card.com/eu/wp-content/uploads/2022/07/Rulebook_v9_en.pdf" target="_blank" rel="noreferrer">Official Rulebook, Chains &amp; Spell Speed</a></p>
       </section>
     </section>
