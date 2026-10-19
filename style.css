@@ -301,6 +301,5 @@ body.card-detail-open,body.combo-pile-open{overflow:hidden}
 @media(max-width:899px){.combo-field-hand .combo-hand-card{width:44px}}
 
 
-/* Compact visual labels replace repeated explanatory copy. */
-.hero-tags{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 26px}.hero-tags span{border:1px solid #edc67766;border-radius:999px;padding:6px 10px;color:#edc677;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+
 .deck-facts{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 14px}.deck-fact{border:1px solid var(--accent,#edc67766);border-radius:999px;padding:5px 9px;color:var(--muted,#aab6c8);font-size:11px;line-height:1.35}
