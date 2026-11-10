@@ -352,14 +352,14 @@ h1 em{font-style:normal}
 @media(max-width:480px){.rule-example{padding:14px}.rule-example-card{width:92px}.rule-example-body{gap:14px}}
 
 /* Selected state, keyboard focus, and small-screen reading */
-.chapter-nav button.active::after,.deck-picker button.active::after,.combo-tabs button.active::after,.combo-visual-step-nav button.active::after{content:" ✓";font-weight:800}
+
 .site-nav a[aria-current="page"]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px}
 button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .chapter-nav button,.chapter-controls button,.deck-picker button,.combo-tabs button,.combo-visual-step-nav button,.combo-actions button,.menu-toggle{min-height:44px}
 .combo-view-toggle{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px}
 .combo-view-toggle button{min-height:44px;padding:9px 14px;border:1px solid var(--line);border-radius:8px;background:var(--soft);color:var(--ink);font:inherit;cursor:pointer}
 .combo-view-toggle button[aria-pressed="true"]{border-color:var(--accent);font-weight:700;box-shadow:inset 0 0 0 1px var(--accent)}
-.combo-view-toggle button[aria-pressed="true"]::after{content:" ✓"}
+
 .combo-copy-status{color:var(--ink);font-size:.85rem}
 .line-card.combo-view-visual .combo-visual-desktop{display:grid}
 .line-card.combo-view-visual .combo-text-only{display:none}
@@ -375,3 +375,6 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offse
 @media(max-width:720px){.chapter-main{padding:22px 18px}.section-shell{padding-left:16px;padding-right:16px}.page-hero h1{font-size:clamp(2.2rem,10vw,3.5rem)}.chapter-nav{gap:6px}.chapter-nav button{font-size:.8rem}.chapter-controls{align-items:center}.chapter-controls button{padding:8px 10px}.effect-grid{grid-template-columns:1fr}.deck-card-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.line-card{padding:12px}.combo-chain li{flex-basis:100%}}
 @media(max-width:420px){.combo-actions{gap:4px;padding:8px 5px}.combo-actions button{font-size:.8rem;padding:8px}.combo-actions button:last-child{min-width:96px}.combo-actions .step-count{font-size:.68rem}.combo-view-toggle button{padding:8px 10px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+/* Selected controls retain a distinct surface and outline. */
+.chapter-nav button.active,.deck-picker button.active,.combo-tabs button.active,.combo-visual-step-nav button.active,.combo-view-toggle button[aria-pressed="true"]{background:#352d1d;color:var(--ink);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent);font-weight:700}
