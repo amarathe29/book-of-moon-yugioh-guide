@@ -20,8 +20,21 @@
     return Object.assign(inferred, details || {});
   };
   const zone = (name, materials) => ({ card: name, materials: materials || [] });
+  const sourceOnlyActions = new Set([
+  "ACTIVATE BOTH PENDULUM SCALES",
+  "ACTIVATE PENDULUM SCALES",
+  "QUICK EFFECT / NEGATE",
+  "ACTIVATE / SELECT FUSION MATERIALS",
+  "QUICK EFFECT / DESTROY",
+  "ACTIVATE MONSTER EFFECT",
+  "DICE EFFECT / CHANGE TERRORTOP TO LEVEL 6",
+  "FUSION-ONLY EXTRA DECK RESTRICTION",
+  "ACTIVATE ON-SUMMON EFFECT",
+  "EXTRA DECK SPECIAL SUMMON RESTRICTION",
+  "NORMAL OR SPECIAL SUMMON"
+]);
   const step = (inputs, action, outputs, fieldAfter, opponentAfter) => {
-    const item = { flow: { inputs, action, outputs }, fieldAfter };
+    const item = { flow: { inputs, action, outputs, showSourceOnly: sourceOnlyActions.has(action) }, fieldAfter };
     if (opponentAfter) item.opponentAfter = opponentAfter;
     return item;
   };
@@ -65,7 +78,7 @@
         step(
           [card("Odd-Eyes Override Dragon"), group("Pendulum Monster Card in your Spell / Trap Zone", 1, { frame: "pendulum", type: "Pendulum Monster Card" })],
           "DESTROY / DRAW / GAIN A PENDULUM SUMMON",
-          [group("Additional Pendulum Summon granted")],
+          [group("Drawn card", 1, { type: "Any card", frame: "any" })],
           { monster3: zone("Odd-Eyes Override Dragon"), extra: group("Pendulum Link Material and destroyed Pendulum card face-up") }
         ),
         step(
@@ -75,7 +88,7 @@
           { monster2: group("Pendulum Summoned monster"), monster3: zone("Odd-Eyes Override Dragon"), monster4: group("Pendulum Summoned monster"), extra: group("Face-up Pendulum cards") }
         ),
         step(
-          [card("Odd-Eyes Override Dragon"), group("Discard card", 1, { type: "Any card", frame: "any", requirements: "Discard any card from your hand when your opponent activates a card or effect during your turn." })],
+          [card("Odd-Eyes Override Dragon")],
           "QUICK EFFECT / NEGATE",
           [group("Opponent's activation negated")],
           { monster2: group("Pendulum Summoned monster"), monster3: zone("Odd-Eyes Override Dragon"), monster4: group("Pendulum Summoned monster"), extra: group("Face-up Pendulum cards") }
@@ -169,7 +182,7 @@
           { monster3: zone("Lunalight Liger Dancer"), grave: group("Fusion materials") }
         ),
         step(
-          [card("Lunalight Liger Dancer"), group("Lunalight monster from Extra Deck")],
+          [card("Lunalight Liger Dancer")],
           "QUICK EFFECT / DESTROY",
           [group("Opponent's Special Summoned monsters may be destroyed")],
           { monster3: zone("Lunalight Liger Dancer"), grave: group("Fusion materials") },
@@ -226,7 +239,7 @@
           { monster2: zone("Speedroid Marble Machine"), monster3: zone("Speedroid Terrortop"), monster4: zone("Speedroid Red-Eyed Dice"), grave: card("Speedroid Taketomborg") }
         ),
         step(
-          [card("Speedroid Red-Eyed Dice"), card("Speedroid Terrortop")],
+          [card("Speedroid Red-Eyed Dice")],
           "DICE EFFECT / CHANGE TERRORTOP TO LEVEL 6",
           [group("Speedroid Terrortop at Level 6", 1, { type: "WIND Machine Monster", frame: "monster", level: "LEVEL 6", requirements: "Speedroid Red-Eyed Dice changed the Level of the exact Terrortop card already on your field to 6." })],
           { monster2: zone("Speedroid Marble Machine"), monster3: zone("Speedroid Terrortop"), monster4: zone("Speedroid Red-Eyed Dice"), grave: card("Speedroid Taketomborg") }
@@ -307,7 +320,7 @@
           { monster3: zone("Mirrorjade the Iceblade Dragon"), grave: group("Discard and remaining materials") }
         ),
         step(
-          [card("Mirrorjade the Iceblade Dragon")],
+          [card("Branded Fusion")],
           "FUSION-ONLY EXTRA DECK RESTRICTION",
           [card("Mirrorjade the Iceblade Dragon")],
           { monster3: zone("Mirrorjade the Iceblade Dragon"), grave: group("Discard and remaining materials") }
@@ -327,7 +340,7 @@
           { monster3: zone("Fallen of Albaz") }
         ),
         step(
-          [card("Fallen of Albaz"), group("Discard card")],
+          [card("Fallen of Albaz")],
           "ACTIVATE ON-SUMMON EFFECT",
           [card("Fallen of Albaz"), group("Discard sent to GY")],
           { monster3: zone("Fallen of Albaz"), grave: group("Discard card") }
@@ -359,7 +372,7 @@
           { grave: card("Titaniklad the Ash Dragon") }
         ),
         step(
-          [card("Titaniklad the Ash Dragon")],
+          [card("Nadir Servant")],
           "EXTRA DECK SPECIAL SUMMON RESTRICTION",
           [group("No Extra Deck summon this turn")],
           { grave: card("Titaniklad the Ash Dragon") }
