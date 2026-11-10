@@ -650,7 +650,7 @@ function comboFieldBoardMarkup(field, heading, note, handEntries) {
     const item=typeof value==='string'?{card:value}:value;
     const occupied=item&&(item.card||item.label),displayName=occupied?(item.label||item.card):'';
     const body=occupied?comboVisualCardMarkup(item,'combo-zone-card')+
-      (item.materials&&item.materials.length?'<span class="combo-material-note">'+item.materials.map(x=>(x.qty||1)+' '+escapeCardText(x.card||x.label||x)).join(', ')+'</span>':''):
+      (item.materials&&item.materials.length?'<span class="combo-material-note">'+item.materials.map(x=>(x.qty||1)+' '+escapeCardText(x.card||x.label||x)).join(', ')+'</span>':'')+(item.note?'<span class="combo-material-note">'+escapeCardText(item.note)+'</span>':''):
       '<span class="combo-zone-empty">Empty</span>';
     return '<div class="combo-field-zone'+(occupied?' occupied':'')+'" aria-label="'+zone.label+(occupied?': '+escapeCardText(displayName):': empty')+'"><span class="combo-zone-label">'+zone.label+'</span>'+body+'</div>';
   }).join('')).join('');
