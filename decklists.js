@@ -653,11 +653,17 @@ function comboFieldBoardMarkup(field, heading, note, handEntries) {
   const handMarkup=Array.isArray(handEntries)?'<section class="combo-field-hand" aria-label="Hand after '+escapeCardText(heading)+'"><div class="combo-field-hand-heading"><b>Hand</b><span>'+pileCount(handEntries)+' '+(pileCount(handEntries)===1?'card':'cards')+'</span></div><div class="combo-field-hand-cards">'+(handEntries.length?comboStartingHandMarkup(handEntries):'<span class="combo-hand-empty">No tracked cards in hand</span>')+'</div></section>':'';
   return '<section class="combo-visual-panel combo-field-panel"><div class="combo-visual-panel-heading"><h3>'+heading+'</h3>'+(note?'<p>'+escapeCardText(note)+'</p>':'')+'</div><div class="combo-field-grid" role="group" aria-label="'+heading+' board state">'+html+'</div>'+handMarkup+'</section>';
 }
-function comboTextOnlyMarkup(combo, stepIndex, handVisual=[]) {
+function comboTextOnlyMarkup(combo, stepIndex, visual) {
+  const handVisual = visual?.hand || [];
+  const describeField = field => Object.values(field || {}).map(card=>card?.card || card?.label || (typeof card==='string'?card:'')).filter(Boolean).join(', ');
+  const playerField = visual ? (describeField(visual.fieldBefore) || 'Empty') : '';
+  const opponentField = describeField(visual?.opponentBefore);
   const discardCount=(handVisual||[]).filter(item=>item&&!item.card&&/discard/i.test((item.label||'')+' '+(item.requirements||''))).reduce((sum,item)=>sum+Math.max(1,Number(item.qty)||1),0);
   const backArt=discardCount?'<div class="combo-mobile-cardbacks" role="img" aria-label="Card-back placeholders for generic discard cards">'+Array.from({length:discardCount},()=>'<span class="combo-mobile-cardback"><img class="combo-card-back-art" src="card-back.svg" alt="Yu-Gi-Oh! card back" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="combo-card-back-fallback" hidden aria-hidden="true"></span></span>').join('')+'</div>':'';
   const setup = '<div class="opening-hand"><b>Starting hand</b><span>'+escapeCardText(combo.hand)+'</span>'+backArt+'</div>'+
-    '<div class="line-condition"><b>Starting field and conditions</b><span>'+escapeCardText(combo.condition)+'</span></div>';
+    (playerField?'<div class="line-condition"><b>Your field</b><span>'+escapeCardText(playerField)+'</span></div>':'')+
+    (opponentField?'<div class="line-condition"><b>Opponent’s field</b><span>'+escapeCardText(opponentField)+'</span></div>':'')+
+    '<div class="line-condition"><b>Before you start</b><span>'+escapeCardText(combo.condition)+'</span></div>';
   const step = stepIndex === 0 ? '<div>'+setup+'</div>' : '<p>'+escapeCardText(combo.steps[stepIndex-1])+'</p>';
   return '<div class="combo-text-only"><article class="line-step current"><span>STEP '+stepIndex+'</span>'+step+'</article>'+
     comboResultAndControls(combo,stepIndex)+'</div>';
@@ -701,7 +707,8 @@ function comboVisualMarkup(combo, visual, stepIndex) {
   let body;
   if (stepIndex === 0) {
     body = '<section class="combo-visual-panel"><h3>Step 0 · Starting hand &amp; fields</h3><p>'+escapeCardText(combo.condition)+'</p></section>'+
-      comboFieldBoardMarkup(startingBoard,'Starting field','',visual.hand||[])+
+      '<section class="combo-visual-panel"><div class="combo-visual-panel-heading"><h3>Starting hand</h3></div><div class="combo-hand-cards">'+comboStartingHandMarkup(visual.hand)+'</div></section>'+
+      comboFieldBoardMarkup(startingBoard,'Starting field','')+
       (visual.opponentBefore?comboFieldBoardMarkup(visual.opponentBefore,'Opponent starting field',''):'');
   } else {
     const i = stepIndex - 1;
@@ -719,7 +726,7 @@ function comboVisualMarkup(combo, visual, stepIndex) {
       comboFieldBoardMarkup(stepBoard,'Step '+stepIndex,'',zoneState.hand||[])+
       (step.opponentAfter?comboFieldBoardMarkup(step.opponentAfter,'Opponent field after step '+stepIndex,''):'');
   }
-  return '<div class="combo-visual-desktop">'+nav+body+comboResultAndControls(combo,stepIndex)+'</div>'+comboTextOnlyMarkup(combo,stepIndex,visual.hand);
+  return '<div class="combo-visual-desktop">'+nav+body+comboResultAndControls(combo,stepIndex)+'</div>'+comboTextOnlyMarkup(combo,stepIndex,visual);
 }
 function renderDeck() {
   const deck=decks[activeDeck];
