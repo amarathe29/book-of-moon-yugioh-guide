@@ -525,7 +525,8 @@ decks.find(x=>x.id==="yusei").combos.push({"title":"Full-Speed Warrior into Star
 decks.find(x=>x.id==="akiza").combos.push({"title":"Red Rose into Black Rose Moonlight Dragon","hand":"Red Rose Dragon + White Rose Dragon","condition":"Start with an empty field. Roxrose Dragon and Basal Rose Shoot remain in the Deck; Black Rose Moonlight Dragon is in the Extra Deck. The opponent controls no Special Summoned monster, so Moonlight has no legal target on its Summon.","steps":["Normal Summon Red Rose Dragon.","Special Summon White Rose Dragon from your hand while you control a Dragon Tuner.","Synchro Summon Black Rose Moonlight Dragon using Level 3 Red Rose and Level 4 White Rose. Moonlight has no legal target in this illustration; decline White Rose’s optional effect.","Activate Red Rose Dragon’s effect to Special Summon Roxrose Dragon from the Deck. Moonlight is not named exactly Black Rose Dragon and is not a Plant Synchro, so Red Rose does not add Frozen Rose here.","Activate Roxrose Dragon to add Basal Rose Shoot from your Deck.","Activate Basal Rose Shoot to Special Summon White Rose Dragon from your Graveyard in Defense Position."],"result":"Black Rose Moonlight Dragon, Roxrose Dragon and White Rose Dragon on your field."});
 
 {const combo=decks.find(d=>d.id==='chronicles').combos.find(c=>c.title==='Branded Fusion into Mirrorjade');combo.steps.splice(1,2,"Activate Lubellion as Chain Link 1, discarding Branded in Red; activate Despian Tragedy as Chain Link 2. Resolve Tragedy to add Aluber, then resolve Lubellion: shuffle it and Fallen of Albaz into their respective Decks to Fusion Summon Mirrorjade.");}
-const picker=document.getElementById('deck-picker'),content=document.getElementById('deck-content');let activeDeck=0,activeCombo=0,activeStep=0;
+const picker=document.getElementById('deck-picker'),content=document.getElementById('deck-content');let activeDeck=0,activeCombo=0,activeStep=0,deckSearchTerm='';
+const deckSearchDetails=new Map();
 let comboView='auto'; try{comboView=localStorage.getItem('bookOfMoonComboView')||'auto'}catch(_){}
 function useVisualView(){return comboView==='visual'||(comboView==='auto'&&!matchMedia('(max-width: 559px)').matches)}
 function readDeckRoute(){const p=new URLSearchParams(location.search);const i=decks.findIndex(x=>x.id===p.get('deck'));activeDeck=i<0?0:i;const combos=decks[activeDeck].combos;const ci=combos.findIndex(x=>x.title===p.get('line'));activeCombo=ci<0?0:ci;activeStep=Math.max(0,Math.min(combos[activeCombo]?.steps.length||0,Number(p.get('step'))||0));}
@@ -539,7 +540,50 @@ const detailClose=document.getElementById('card-detail-close');
 let lastCardTrigger=null,currentDetailRequest=0;
 function escapeCardText(value){return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function getCardInfo(name){if(!cardDataCache.has(name)){const request=fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?name='+encodeURIComponent(name)).then(response=>{if(!response.ok)throw Error('Card lookup failed');return response.json()}).then(data=>{const card=data&&data.data&&data.data[0];if(!card)throw Error('No card details returned');return card}).catch(error=>{cardDataCache.delete(name);throw error});cardDataCache.set(name,request)}return cardDataCache.get(name)}
-function renderDecklist(list){const section=(title,cards)=>{const total=cards.reduce((sum,card)=>sum+card[1],0);return '<section class="decklist-group"><div class="decklist-group-heading"><h3>'+title+'</h3><span>'+total+' cards</span></div><div class="deck-card-grid">'+cards.map(([name,qty])=>'<button type="button" class="deck-card-tile" data-card-name="'+escapeCardText(name)+'" aria-label="View details for '+escapeCardText(name)+'; quantity '+qty+'" aria-haspopup="dialog" aria-controls="card-detail-overlay"><span class="deck-card-image-wrap"><img class="deck-card-image" data-card-name="'+escapeCardText(name)+'" alt="'+escapeCardText(name)+' card image" loading="lazy"><span class="deck-card-qty">×'+qty+'</span><span class="deck-card-image-fallback" aria-hidden="true">'+escapeCardText(name.split(' ').slice(0,2).map(x=>x[0]).join(''))+'</span></span><b>'+escapeCardText(name)+'</b></button>').join('')+'</div></section>'};return '<section class="decklist-gallery" id="decklist" aria-label="Fixed decklist"><div class="decklist-gallery-heading"><h2>Decklist</h2></div>'+section('Main Deck',list.main)+section('Extra Deck',list.extra)+'</section>'}
+function renderDecklist(list){const section=(title,cards)=>{const total=cards.reduce((sum,card)=>sum+card[1],0);return '<section class="decklist-group"><div class="decklist-group-heading"><h3>'+title+'</h3><span>'+total+' cards</span></div><div class="deck-card-grid">'+cards.map(([name,qty])=>'<button type="button" class="deck-card-tile" data-card-name="'+escapeCardText(name)+'" aria-label="View details for '+escapeCardText(name)+'; quantity '+qty+'" aria-haspopup="dialog" aria-controls="card-detail-overlay"><span class="deck-card-image-wrap"><img class="deck-card-image" data-card-name="'+escapeCardText(name)+'" alt="'+escapeCardText(name)+' card image" loading="lazy"><span class="deck-card-qty">×'+qty+'</span><span class="deck-card-image-fallback" aria-hidden="true">'+escapeCardText(name.split(' ').slice(0,2).map(x=>x[0]).join(''))+'</span></span><b>'+escapeCardText(name)+'</b></button>').join('')+'</div></section>'};return '<section class="decklist-gallery" id="decklist" aria-label="Fixed decklist"><div class="decklist-gallery-heading"><h2>Decklist</h2></div><div class="deck-search"><label for="deck-search-input">Search decklist</label><div class="deck-search-row"><input id="deck-search-input" type="search" autocomplete="off" placeholder="Name, type, or attribute" value="'+escapeCardText(deckSearchTerm)+'"><button type="button" id="deck-search-clear" aria-label="Clear decklist search">Clear</button></div><p class="deck-search-status" role="status" aria-live="polite"></p></div>'+section('Main Deck',list.main)+section('Extra Deck',list.extra)+'</section>'}
+function setupDecklistSearch() {
+  const gallery=content.querySelector('.decklist-gallery');
+  const input=gallery?.querySelector('#deck-search-input'),clear=gallery?.querySelector('#deck-search-clear'),status=gallery?.querySelector('.deck-search-status');
+  if(!gallery||!input||!clear||!status)return;
+  const tiles=[...gallery.querySelectorAll('.deck-card-tile')],groups=[...gallery.querySelectorAll('.decklist-group')];
+  const normalize=value=>String(value||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  let generation=0,timer;
+  function apply(query){
+    const tokens=normalize(query).trim().split(/\s+/).filter(Boolean);
+    let count=0;
+    for(const tile of tiles){
+      const name=tile.dataset.cardName||'',details=deckSearchDetails.get(name);
+      const haystack=normalize([name,details?.type,details?.race,details?.attribute,details?.humanReadableCardType].filter(Boolean).join(' '));
+      const matches=tokens.every(token=>haystack.includes(token));tile.hidden=!matches;if(matches)count++;
+    }
+    for(const group of groups)group.hidden=![...group.querySelectorAll('.deck-card-tile')].some(tile=>!tile.hidden);
+    return count;
+  }
+  async function search(){
+    const id=++generation,query=input.value.trim();deckSearchTerm=input.value;clear.disabled=!query;
+    let count=apply(query);
+    if(!query){status.textContent='';return}
+    if(query.length<2){status.textContent=count+' matching cards. Type another character to search all card details.';return}
+    const queue=[...new Set(tiles.map(tile=>tile.dataset.cardName).filter(name=>!deckSearchDetails.has(name)))];
+    if(!queue.length){status.textContent=count+' matching '+(count===1?'card':'cards')+'.';return}
+    status.textContent='Searching card details…';
+    let next=0,failed=0;
+    async function worker(){
+      while(next<queue.length && id===generation && gallery.isConnected){
+        const name=queue[next++];
+        try{const card=await getCardInfo(name);deckSearchDetails.set(name,{type:card.type,race:card.race,attribute:card.attribute,humanReadableCardType:card.humanReadableCardType});}
+        catch(_){failed++}
+        if(id===generation && gallery.isConnected)count=apply(query);
+      }
+    }
+    await Promise.all(Array.from({length:Math.min(5,queue.length)},worker));
+    if(id!==generation||!gallery.isConnected)return;
+    status.textContent=count+' matching '+(count===1?'card':'cards')+'.'+(failed?' Some card details could not load; name search still works.':'');
+  }
+  input.addEventListener('input',()=>{deckSearchTerm=input.value;generation++;clearTimeout(timer);clear.disabled=!input.value.trim();const count=apply(input.value);status.textContent=input.value.trim()?count+' matching '+(count===1?'card':'cards')+'.':'';timer=setTimeout(search,200)});
+  clear.addEventListener('click',()=>{input.value='';deckSearchTerm='';generation++;clearTimeout(timer);apply('');clear.disabled=true;status.textContent='';input.focus()});
+  clear.disabled=!input.value.trim();if(input.value.trim())search();
+}
 function loadDeckCardImages(root=content){const imgs=[...root.querySelectorAll('.deck-card-image[data-card-name]')];const load=img=>{const name=img.dataset.cardName;if(img.dataset.loading)return;img.dataset.loading='true';getCardInfo(name).then(card=>{const image=card.card_images&&card.card_images[0];const url=image&&(image.image_url_small||image.image_url);if(!url)throw Error('No card image');img.src=url;img.classList.add('loaded')}).catch(()=>{img.closest('.deck-card-image-wrap')?.classList.add('image-unavailable')})};if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){load(entry.target);observer.unobserve(entry.target)}}),{rootMargin:'160px'});imgs.forEach(img=>observer.observe(img))}else imgs.forEach(load)}
 function getCardTypeLine(card){const type=String(card.type||'').trim();if(type.includes('Monster')){const subtypes=type.replace(/\s*Monster$/i,'').trim().split(/\s+/).filter(Boolean).join(' / ');return [card.race,subtypes].filter(Boolean).join(' / ')}if(type.includes('Spell'))return ['Spell',card.race].filter(Boolean).join(' / ');if(type.includes('Trap'))return ['Trap',card.race].filter(Boolean).join(' / ');return type}
 function getCardLevelLabel(card){if(Number(card.linkval)>0)return 'LINK-'+card.linkval;if(card.level!==undefined&&card.level!==null)return (String(card.type||'').toLowerCase().includes('xyz')?'RANK ':'LEVEL ')+card.level;return ''}
@@ -562,7 +606,9 @@ function openGenericCardPreview(trigger) {
   const scale=document.getElementById('card-detail-scale');
   scale.textContent=data.genericScale?'Scale requirement: '+data.genericScale:'';
   scale.hidden=!data.genericScale;
-  document.getElementById('card-detail-attribute').hidden=true;
+  const attribute=document.getElementById('card-detail-attribute');
+  attribute.textContent=data.genericAttribute||'';
+  attribute.hidden=!data.genericAttribute;
   document.getElementById('card-detail-stats').hidden=true;
   document.getElementById('card-detail-source').hidden=true;
   const image=document.getElementById('card-detail-image');
@@ -606,23 +652,23 @@ detailOverlay.addEventListener('click',event=>{if(event.target===detailOverlay)c
 document.addEventListener('keydown',event=>{if(!detailOverlay.hidden&&event.key==='Escape'){event.preventDefault();closeCardDetails();return}if(!pileOverlay.hidden&&event.key==='Escape'){event.preventDefault();closePileWindow();return}if(!pileOverlay.hidden&&event.key==='Tab'){const focusable=[...pileDialog.querySelectorAll('button:not([disabled])')];if(focusable.length){const first=focusable[0],last=focusable[focusable.length-1];if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}}}if(detailOverlay.hidden)return;if(event.key==='Escape'){event.preventDefault();closeCardDetails();return}if(event.key==='Tab'){const focusable=[...detailDialog.querySelectorAll('button:not([disabled]),a[href]:not([hidden])')];if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}}});
 function comboVisualCardMarkup(entry, context) {
   const item=typeof entry==='string'?{card:entry}:(entry||{});
-  const name=item.card||'';
-  const displayName=item.label||name||'Card';
-  const specific=Boolean(name);
-  const frame=item.frame||'any';
-  const meta=item.level||(item.scale?'Scale '+item.scale:'');
+  const name=item.card||'', displayName=item.label||name||'Card', specific=Boolean(name), frame=item.frame||'any';
+  const rawLevel=item.level??'', rawScale=item.scale??'';
+  const level=rawLevel!==''?(/^(level|rank|link)\b/i.test(String(rawLevel))?String(rawLevel):'Level '+rawLevel):'';
+  const scale=rawScale!==''?'Scale '+rawScale:'';
+  const attributes=[...new Set((displayName+' '+(item.type||'')).match(/\b(?:DARK|LIGHT|EARTH|WIND|FIRE|WATER|DIVINE)\b/gi)?.map(x=>x.toUpperCase())||[])];
+  const attribute=item.attribute||(attributes.length===1?attributes[0]:'');
   const qty=Number(item.qty)>1?'<span class="deck-card-qty">×'+Number(item.qty)+'</span>':'';
-  const isDiscardCard=!specific&&frame==='any'&&!item.level&&!item.scale&&/^(card to discard|discard card|discard sent to gy|other cards in hand|drawn card|card drawn|any card)$/i.test(displayName);
+  const isDiscardCard=!specific&&frame==='any'&&rawLevel===''&&rawScale===''&&!attribute&&/^(card to discard|discard card|discard sent to gy|other cards in hand|drawn card|card drawn|any card)$/i.test(displayName);
   const common=' class="deck-card-image-wrap combo-visual-card-frame';
-  const frameOpen=specific||isDiscardCard
-    ? '<span'+common+(isDiscardCard?' combo-discard-frame':'')+'">'
-    : '<span'+common+' combo-generic-frame" data-generic-frame="'+escapeCardText(frame)+'">';
+  const frameOpen=specific||isDiscardCard?'<span'+common+(isDiscardCard?' combo-discard-frame':'')+'">':'<span'+common+' combo-generic-frame" data-generic-frame="'+escapeCardText(frame)+'">';
   const art=specific
     ? '<img class="deck-card-image" data-card-name="'+escapeCardText(name)+'" alt="'+escapeCardText(name)+' card image" loading="lazy"><span class="deck-card-image-fallback" aria-hidden="true">'+escapeCardText(name.split(/\s+/).slice(0,2).map(x=>x[0]||'').join(''))+'</span>'
-    : isDiscardCard?'<img class="combo-card-back-art" src="card-back.svg" alt="Yu-Gi-Oh! card back" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="combo-card-back-fallback" hidden aria-hidden="true"></span>':'<span class="combo-generic-art" aria-hidden="true"></span>'+(meta?'<span class="combo-generic-meta">'+escapeCardText(meta)+'</span>':'');
+    : isDiscardCard?'<img class="combo-card-back-art" src="card-back.svg" alt="Yu-Gi-Oh! card back" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="combo-card-back-fallback" hidden aria-hidden="true"></span>'
+    : '<span class="combo-generic-face" aria-hidden="true"><span class="combo-generic-face-top">'+escapeCardText(attribute||'Requirement')+'</span><span class="combo-generic-face-level">'+escapeCardText([level,scale].filter(Boolean).join(' · '))+'</span><span class="combo-generic-face-art">'+escapeCardText(item.displayRequirement||item.nameRequirement||displayName)+'</span><span class="combo-generic-face-type">'+escapeCardText(item.type||'Any card')+'</span></span>';
   const button=specific
     ? '<button type="button" class="combo-visual-card '+context+'" data-card-name="'+escapeCardText(name)+'" aria-label="View card details for '+escapeCardText(name)+'" aria-haspopup="dialog" aria-controls="card-detail-overlay">'
-    : '<button type="button" class="combo-visual-card combo-generic-card '+context+'" data-generic-preview data-generic-label="'+escapeCardText(displayName)+'" data-generic-type="'+escapeCardText(item.type||'Any card')+'" data-generic-frame="'+escapeCardText(frame)+'" data-generic-level="'+escapeCardText(item.level||'')+'" data-generic-scale="'+escapeCardText(item.scale||'')+'" data-generic-requirements="'+escapeCardText(item.requirements||'This placeholder represents a card with no specific name or artwork.')+'" aria-label="View type and requirements for '+escapeCardText(displayName)+'" aria-haspopup="dialog" aria-controls="card-detail-overlay">';
+    : '<button type="button" class="combo-visual-card combo-generic-card '+context+'" data-generic-preview data-generic-label="'+escapeCardText(displayName)+'" data-generic-type="'+escapeCardText(item.type||'Any card')+'" data-generic-frame="'+escapeCardText(frame)+'" data-generic-level="'+escapeCardText(level)+'" data-generic-scale="'+escapeCardText(String(rawScale))+'" data-generic-attribute="'+escapeCardText(attribute)+'" data-generic-requirements="'+escapeCardText(item.requirements||'This placeholder represents a card with no specific name or artwork.')+'" aria-label="View type and requirements for '+escapeCardText(displayName)+'" aria-haspopup="dialog" aria-controls="card-detail-overlay">';
   return button+frameOpen+art+qty+'</span><span class="combo-visual-card-name">'+escapeCardText(displayName)+'</span>'+(!specific&&!isDiscardCard&&item.type&&item.type!=='Any card'?'<span class="combo-generic-requirement">'+escapeCardText(item.type)+'</span>':'')+'</button>';
 }
 function comboStartingHandMarkup(entries) {
@@ -755,7 +801,7 @@ function comboVisualMarkup(combo, visual, stepIndex) {
 function renderDeck() {
   const deck=decks[activeDeck];
   picker.innerHTML=decks.map((item,i)=>'<button role="tab" aria-selected="'+(i===activeDeck)+'" class="'+(i===activeDeck?'active':'')+'" data-deck="'+i+'" id="deck-tab-'+i+'" tabindex="'+(i===activeDeck?'0':'-1')+'" aria-controls="deck-content"><b>'+escapeCardText(item.name)+'</b><span>'+escapeCardText(item.product?.startsWith('THE CHRONICLES DECK')?'The Chronicles Deck':item.product||'Custom Deck')+'</span></button>').join('');
-  picker.querySelectorAll('[data-deck]').forEach(button=>button.addEventListener('click',()=>{activeDeck=Number(button.dataset.deck);activeCombo=0;activeStep=0;writeDeckRoute(true);renderDeck();picker.querySelector('[data-deck="'+activeDeck+'"]').focus()}));
+  picker.querySelectorAll('[data-deck]').forEach(button=>button.addEventListener('click',()=>{activeDeck=Number(button.dataset.deck);activeCombo=0;activeStep=0;deckSearchTerm='';writeDeckRoute(true);renderDeck();picker.querySelector('[data-deck="'+activeDeck+'"]').focus()}));
   const combo=deck.combos[activeCombo];
   if(combo)activeStep=Math.min(activeStep,combo.steps.length);
   const key=combo && deck.id+'|'+combo.title;
@@ -766,6 +812,7 @@ function renderDeck() {
     '<section class="combo-tutorial'+(visual?' has-visual':'')+'" id="combo-lines"><div class="section-heading"><div><h2>Combo Lines</h2></div></div>'+
     '<div class="combo-tabs">'+deck.combos.map((item,i)=>'<button type="button" class="'+(i===activeCombo?'active':'')+'" aria-pressed="'+(i===activeCombo)+'" data-combo="'+i+'">'+(i+1)+'. '+escapeCardText(item.title)+'</button>').join('')+'</div><div class="line-card combo-view-'+(useVisualView()?'visual':'text')+'">'+(visual?'<div class="combo-view-toggle" role="group" aria-label="Combo display"><button type="button" data-combo-view="visual" aria-pressed="'+useVisualView()+'">Field view</button><button type="button" data-combo-view="text" aria-pressed="'+(!useVisualView())+'">Text view</button><button type="button" data-copy-combo>Copy link</button><span class="combo-copy-status" role="status"></span></div>':'')+markup+'</div></section>';
   loadDeckCardImages();
+  setupDecklistSearch();
   content.querySelector('[data-copy-combo]')?.addEventListener('click',async()=>{writeDeckRoute();const status=content.querySelector('.combo-copy-status');try{const link=new URL(location.href);link.hash='combo-lines';await navigator.clipboard.writeText(link.href);status.textContent='Link copied';}catch(_){status.textContent='Copy the page address to share this step.';}});
   content.querySelectorAll('[data-combo-view]').forEach(button=>button.addEventListener('click',()=>{comboView=button.dataset.comboView;try{localStorage.setItem('bookOfMoonComboView',comboView)}catch(_){}renderDeck();content.querySelector('[data-combo-view="'+comboView+'"]').focus({preventScroll:true})}));
   content.querySelectorAll('[data-combo]').forEach(button=>button.addEventListener('click',()=>{activeCombo=Number(button.dataset.combo);activeStep=0;writeDeckRoute(true);renderDeck();content.querySelector('[data-combo="'+activeCombo+'"]').focus()}));
@@ -774,8 +821,8 @@ function renderDeck() {
   content.querySelectorAll('.line-next').forEach(button=>button.addEventListener('click',()=>{activeStep=activeStep===combo.steps.length?0:activeStep+1;writeDeckRoute();renderDeck();content.querySelector((useVisualView()?'.combo-visual-desktop':'.combo-text-only')+' .line-next')?.focus({preventScroll:true})}));
 }
 content.addEventListener('click',event=>{const pile=event.target.closest('.combo-pile-trigger');if(pile){openPileWindow(pile);return}const generic=event.target.closest('.combo-visual-card[data-generic-preview]');if(generic){openGenericCardPreview(generic);return}const button=event.target.closest('.combo-visual-card[data-card-name]');if(button)openCardDetails(button.dataset.cardName,button)});
-picker.addEventListener('keydown',event=>{const keys=['ArrowRight','ArrowDown','ArrowLeft','ArrowUp','Home','End'];if(!keys.includes(event.key))return;event.preventDefault();let next=activeDeck;if(event.key==='Home')next=0;else if(event.key==='End')next=decks.length-1;else next=(activeDeck+(event.key==='ArrowRight'||event.key==='ArrowDown'?1:-1)+decks.length)%decks.length;activeDeck=next;activeCombo=0;activeStep=0;writeDeckRoute(true);renderDeck();picker.querySelector('[data-deck="'+activeDeck+'"]').focus();});
+picker.addEventListener('keydown',event=>{const keys=['ArrowRight','ArrowDown','ArrowLeft','ArrowUp','Home','End'];if(!keys.includes(event.key))return;event.preventDefault();let next=activeDeck;if(event.key==='Home')next=0;else if(event.key==='End')next=decks.length-1;else next=(activeDeck+(event.key==='ArrowRight'||event.key==='ArrowDown'?1:-1)+decks.length)%decks.length;activeDeck=next;activeCombo=0;activeStep=0;deckSearchTerm='';writeDeckRoute(true);renderDeck();picker.querySelector('[data-deck="'+activeDeck+'"]').focus();});
 content.addEventListener('keydown',event=>{const combo=event.target.closest('[data-combo]'),step=event.target.closest('[data-visual-step]');if(!combo&&!step)return;let n=combo?activeCombo:activeStep,max=combo?decks[activeDeck].combos.length:(decks[activeDeck].combos[activeCombo].steps.length+1);if(event.key==='ArrowRight'||event.key==='ArrowDown')n=(n+1)%max;else if(event.key==='ArrowLeft'||event.key==='ArrowUp')n=(n-1+max)%max;else if(event.key==='Home')n=0;else if(event.key==='End')n=max-1;else return;event.preventDefault();if(combo){activeCombo=n;activeStep=0;writeDeckRoute(true)}else{activeStep=n;writeDeckRoute()}renderDeck();content.querySelector(combo?'[data-combo="'+n+'"]':'[data-visual-step="'+n+'"]').focus()});
-window.addEventListener('popstate',()=>{readDeckRoute();renderDeck()});
+window.addEventListener('popstate',()=>{deckSearchTerm='';readDeckRoute();renderDeck()});
 matchMedia('(max-width: 559px)').addEventListener?.('change',()=>{if(comboView==='auto')renderDeck()});
 readDeckRoute();renderDeck();if(location.hash==='#combo-lines')requestAnimationFrame(()=>document.getElementById('combo-lines')?.scrollIntoView());

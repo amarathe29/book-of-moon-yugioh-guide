@@ -378,3 +378,22 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offse
 
 /* Selected controls retain a distinct surface and outline. */
 .chapter-nav button.active,.deck-picker button.active,.combo-tabs button.active,.combo-visual-step-nav button.active,.combo-view-toggle button[aria-pressed="true"]{background:#352d1d;color:var(--ink);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent);font-weight:700}
+
+/* Decklist filtering and readable generic requirement cards. */
+.deck-search{max-width:440px;margin:0 0 24px}
+.deck-search label{display:block;margin-bottom:7px;font-weight:700;color:var(--ink)}
+.deck-search-row{display:flex;gap:8px}
+.deck-search input{min-width:0;flex:1;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--soft);color:var(--ink);font:inherit;font-size:16px}
+.deck-search input:focus-visible,.deck-search button:focus-visible{outline:3px solid #eac55e;outline-offset:2px}
+.deck-search button{padding:9px 14px;border:1px solid var(--line);border-radius:8px;background:var(--soft);color:var(--ink);font:inherit;cursor:pointer}
+.deck-search button:disabled{opacity:.5;cursor:default}
+.deck-search-status{min-height:1.3em;margin:7px 0 0;color:var(--muted);font-size:.84rem}
+.deck-card-tile[hidden],.decklist-group[hidden]{display:none!important}
+.combo-generic-frame .combo-generic-face{display:grid;grid-template-rows:auto auto 1fr auto;width:100%;height:100%;min-height:0;gap:2px;color:#21170c;font-family:Arial,sans-serif;font-weight:700;text-align:center;overflow:hidden}
+.combo-generic-face-top,.combo-generic-face-level,.combo-generic-face-type{min-width:0;overflow:hidden;font-size:clamp(6px,.65vw,10px);line-height:1.1}
+.combo-generic-face-top{background:#f6e5b9;padding:2px}
+.combo-generic-face-level{color:#fff6d9;text-shadow:0 1px 2px #111}
+.combo-generic-face-art{display:grid;place-items:center;min-height:0;padding:3px;background:#17202e;border:1px solid rgba(255,255,255,.3);color:#fff3cd;font-size:clamp(7px,.72vw,11px);line-height:1.1;overflow-wrap:anywhere;overflow:hidden}
+.combo-generic-face-type{background:#f6e5b9;padding:2px}
+.combo-zone-card .combo-generic-face-top,.combo-zone-card .combo-generic-face-level,.combo-zone-card .combo-generic-face-type{font-size:6px}
+.combo-zone-card .combo-generic-face-art{font-size:7px}
