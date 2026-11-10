@@ -21,7 +21,7 @@ const deckLists={"odd-eyes":{"main":[["Droll & Lock Bird",2],["Performapal Pendu
 decks.push(...[
   {
     "id": "yusei",
-    "name": "Yusei",
+    "name": "Synchron",
     "boss": "Stardust Dragon",
     "art": "https://images.ygoprodeck.com/images/cards_cropped/44508094.jpg",
     "subtitle": "Synchron · Synchro",
@@ -32,7 +32,7 @@ decks.push(...[
   },
   {
     "id": "akiza",
-    "name": "Akiza",
+    "name": "Rose Dragon",
     "boss": "Black Rose Dragon",
     "art": "https://images.ygoprodeck.com/images/cards_cropped/73580471.jpg",
     "subtitle": "Plant · Rose Dragon · Synchro",
@@ -43,7 +43,7 @@ decks.push(...[
   },
   {
     "id": "crow",
-    "name": "Crow",
+    "name": "Blackwing",
     "boss": "Black-Winged Dragon",
     "art": "https://images.ygoprodeck.com/images/cards_cropped/9012916.jpg",
     "subtitle": "Blackwing · Synchro",
@@ -734,7 +734,7 @@ function comboVisualMarkup(combo, visual, stepIndex) {
 }
 function renderDeck() {
   const deck=decks[activeDeck];
-  picker.innerHTML=decks.map((item,i)=>'<button role="tab" aria-selected="'+(i===activeDeck)+'" class="'+(i===activeDeck?'active':'')+'" data-deck="'+i+'"><b>'+escapeCardText(item.name)+'</b><span>'+escapeCardText(item.product==='Legendary 5D’s Decks'?item.product:item.product?'Structure Deck':'Custom Deck')+'</span></button>').join('');
+  picker.innerHTML=decks.map((item,i)=>'<button role="tab" aria-selected="'+(i===activeDeck)+'" class="'+(i===activeDeck?'active':'')+'" data-deck="'+i+'"><b>'+escapeCardText(item.name)+'</b><span>'+escapeCardText(item.product?.startsWith('THE CHRONICLES DECK')?'The Chronicles Deck':item.product||'Custom Deck')+'</span></button>').join('');
   picker.querySelectorAll('[data-deck]').forEach(button=>button.addEventListener('click',()=>{activeDeck=Number(button.dataset.deck);activeCombo=0;activeStep=0;renderDeck()}));
   const combo=deck.combos[activeCombo];
   if(combo)activeStep=Math.min(activeStep,combo.steps.length);
