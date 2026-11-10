@@ -339,3 +339,14 @@ h1 em{font-style:normal}
 .combo-pile-top .combo-card-back-fallback{position:absolute;inset:0}
 
 .combo-mobile-cardbacks{display:flex;gap:7px;align-items:start;margin-top:7px}.combo-mobile-cardback{position:relative;display:block;width:48px;aspect-ratio:59/86;overflow:hidden;border-radius:3px;background:#111a2a}.combo-mobile-cardback .combo-card-back-art{width:100%;height:100%;object-fit:cover}.combo-mobile-cardback .combo-card-back-fallback{position:absolute;inset:0}.combo-card-back-art[hidden],.combo-pile-top-image[hidden],.combo-card-back-fallback[hidden]{display:none!important}
+
+/* Card examples within guide content */
+.rule-example{margin:24px 0;padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.rule-example h3{margin-top:0}
+.rule-example-body{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.rule-example-body>div:last-child{flex:1 1 240px;min-width:0}
+.rule-example-cards{display:flex;gap:12px;flex-wrap:wrap}
+.rule-example-card{display:flex;width:112px;flex-direction:column;gap:6px;color:var(--ink);text-align:center;font-size:.75rem;line-height:1.3}
+.rule-example-card img{display:block;width:100%;height:auto;aspect-ratio: 421/614;object-fit:contain}
+.rule-example-card:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+@media(max-width:480px){.rule-example{padding:14px}.rule-example-card{width:92px}.rule-example-body{gap:14px}}
