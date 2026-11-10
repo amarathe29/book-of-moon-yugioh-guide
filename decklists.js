@@ -17,6 +17,497 @@ const decks=[
 {title:'Nadir Servant sets an Albaz follow-up',hand:'Nadir Servant',condition:'Titaniklad the Ash Dragon is in your Extra Deck and a Dogmatika monster or Fallen of Albaz is in your Deck/GY with ATK no greater than Titaniklad.',steps:['Activate Nadir Servant: send Titaniklad from Extra Deck to the GY, then add a legal Dogmatika monster or Fallen of Albaz from Deck/GY.','For the rest of the turn after it resolves, you cannot Special Summon from the Extra Deck. Do not attempt a Fusion line this turn.','During the End Phase, Titaniklad’s effect can add or Special Summon a Dogmatika monster or Fallen of Albaz from your Deck.'],result:'A next-turn Albaz starter or Dogmatika follow-up; this is a setup line, not an immediate Extra Deck combo.'}]}
 ];
 const deckLists={"odd-eyes":{"main":[["Droll & Lock Bird",2],["Performapal Pendulum Sorcerer",1],["Performapal Skullcrobat Joker",3],["Performapal Monkeyboard",3],["Odd-Eyes Persona Dragon",1],["Odd-Eyes Mirage Dragon",1],["Astrograph Sorcerer",1],["Ash Blossom & Joyous Spring",1],["Performapal Odd-Eyes Dissolver",1],["Performapal Odd-Eyes Synchron",1],["Odd-Eyes Arc Pendulum Dragon",3],["Odd-Eyes Revolution Dragon",3],["Performapal Odd-Eyes Butler",1],["Performapal Odd-Eyes Valet",1],["Performapal Gentrude",1],["Performapal Ladyange",1],["Performapal Odd-Eyes Seer",3],["Mulcharmy Purulia",1],["Sky Iris",3],["Called by the Grave",1],["Primite Lordly Lode",3],["Primite Roar",2],["Primite Drillbeam",2]],"extra":[["Odd-Eyes Vortex Dragon",1],["Chaos Angel",1],["Odd-Eyes Solblaze Dragon",1],["Odd-Eyes Rebellion Dragon",1],["Odd-Eyes Absolute Dragon",1],["Odd-Eyes Raging Dragon",1],["Odd-Eyes Rebellion Dragon Overlord",1],["Raider's Knight",1],["Arc Rebellion Xyz Dragon",1],["I:P Masquerena",1],["Accesscode Talker",1],["Beyond the Pendulum",1],["Exceed the Pendulum",1],["S:P Little Knight",1],["Odd-Eyes Override Dragon",1]]},"lunalight":{"main":[["Effect Veiler",1],["Lunalight Black Sheep",3],["Lunalight Wolf",1],["Lunalight Tiger",1],["Lunalight Kaleido Chick",2],["Ash Blossom & Joyous Spring",1],["Lunalight Emerald Bird",1],["Lunalight Yellow Marten",1],["Tri-Brigade Fraktall",1],["Mulcharmy Meowls",1],["Lunalight Gold Leo",3],["Lunalight Silver Hound",2],["Lunalight Scarlet Tiger",1],["Polymerization",1],["Foolish Burial",1],["Fire Formation - Tenki",3],["Luna Light Perfume",2],["Foolish Burial Goods",1],["Called by the Grave",1],["Lunalight Fusion",1],["Crossout Designator",1],["Triple Tactics Talent",1],["Pot of Prosperity",1],["Triple Tactics Thrust",1],["Heavy Polymerization",1],["Lunalight Masquerade",3],["Infinite Impermanence",1],["Lunalight Serenade Dance",1],["The Black Goat Laughs",1]],"extra":[["Lunalight Cat Dancer",1],["Lunalight Panther Dancer",1],["Lunalight Leo Dancer",2],["Lunalight Sabre Dancer",1],["Lunalight Liger Dancer",2],["Lunalight Perfume Dancer",2],["Brotherhood of the Fire Fist - Tiger King",1],["Outer Entity Nyarla",1],["Time Thief Redoer",1],["Salamangreat Almiraj",1],["Cross-Sheep",1],["S:P Little Knight",1]]},"speedroid":{"main":[["Effect Veiler",1],["Droll & Lock Bird",2],["Speedroid Terrortop",3],["Speedroid Double Yoyo",1],["Speedroid Taketomborg",3],["Speedroid Red-Eyed Dice",1],["Speedroid Den-Den Daiko Duke",1],["Ash Blossom & Joyous Spring",1],["Speedroid Marble Machine",3],["Nibiru, the Primal Being",2],["Speedroid CarTurbo",2],["Speedroid Ultra Hound",1],["Mulcharmy Fuwalos",1],["Speedroid Wing Synchron",2],["Speedroid Darumaknocker",2],["Speed Recovery",2],["Called by the Grave",1],["Triple Tactics Talent",1],["Speedroid Wheel",3],["Speedroid Scratch",3],["Infinite Impermanence",2],["Speedroid Dupligate",1],["Speedroid Clear Wing Wonder",1]],"extra":[["Clear Wing Synchro Dragon",1],["Hi-Speedroid Chanbara",1],["Hi-Speedroid Hagoita",1],["Stardust Charge Warrior",1],["Hi-Speedroid Puzzle",1],["Clear Wing Fast Dragon",1],["Hi-Speedroid Kitedrake",1],["Hi-Speedroid Cork Shooter",1],["Crystal Clear Wing Synchro Dragon",1],["Hi-Speedroid Clear Wing Rider",1],["Crystal Clear Wing Over Synchro Dragon",1],["Hi-Speedroid Glider #2",2],["Hi-Speedroid Rubber Band Shooter",2]]},"chronicles":{"main":[["Fallen of Albaz",1],["Incredible Ecclesia, the Virtuous",1],["Aluber the Jester of Despia",1],["Blazing Cartesia, the Virtuous",1],["Albion the Shrouded Dragon",1],["Guiding Quem, the Virtuous",1],["Springans Kitt",1],["Tri-Brigade Mercourier",1],["Despian Tragedy",1],["The Bystial Lubellion",1],["Bystial Magnamhut",1],["Bystial Saronir",1],["Bystial Druiswurm",1],["Dogmatika Ecclesia, the Virtuous",1],["Dogmatika Fleurdelis, the Knighted",1],["Dogmatika Maximus",1],["Nibiru, the Primal Being",1],["Keeper of Dragon Magic",1],["The Fallen & The Virtuous",1],["Branded Fusion",1],["Branded in White",1],["Branded in Red",1],["Branded Opening",1],["Branded in High Spirits",1],["Branded Lost",1],["Branded Regained",1],["Nadir Servant",1],["Branded Bond",1],["Fusion Deployment",1],["Triple Tactics Thrust",1],["Foolish Burial",1],["Gold Sarcophagus",1],["Super Polymerization",1],["Branded Retribution",1],["Branded Banishment",1],["Branded Sword",1],["Branded Beast",1],["The Black Goat Laughs",1],["Dogmatika Punishment",1],["Fusion Duplication",1]],"extra":[["The Dragon that Devours the Dogma",1],["Mirrorjade the Iceblade Dragon",1],["Albion the Branded Dragon",1],["Lubellion the Searing Dragon",1],["Alba-Lenatus the Abyss Dragon",1],["Titaniklad the Ash Dragon",1],["Brigrand the Glory Dragon",1],["Sprind the Irondash Dragon",1],["Rindbrumm the Striking Dragon",1],["Granguignol the Dusk Dragon",1]]}};
+// Legendary 5D’s Decks: fixed English print quantities, grouped by card name.
+decks.push(...[
+  {
+    "id": "yusei",
+    "name": "Yusei",
+    "boss": "Stardust Dragon",
+    "art": "https://images.ygoprodeck.com/images/cards_cropped/44508094.jpg",
+    "subtitle": "Synchron · Synchro",
+    "product": "Legendary 5D’s Decks",
+    "fixed": "40-card Main Deck + 10-card Extra Deck",
+    "playstyle": "Synchron · Synchro",
+    "combos": []
+  },
+  {
+    "id": "akiza",
+    "name": "Akiza",
+    "boss": "Black Rose Dragon",
+    "art": "https://images.ygoprodeck.com/images/cards_cropped/73580471.jpg",
+    "subtitle": "Plant · Rose Dragon · Synchro",
+    "product": "Legendary 5D’s Decks",
+    "fixed": "40-card Main Deck + 10-card Extra Deck",
+    "playstyle": "Plant · Rose Dragon · Synchro",
+    "combos": []
+  },
+  {
+    "id": "crow",
+    "name": "Crow",
+    "boss": "Black-Winged Dragon",
+    "art": "https://images.ygoprodeck.com/images/cards_cropped/9012916.jpg",
+    "subtitle": "Blackwing · Synchro",
+    "product": "Legendary 5D’s Decks",
+    "fixed": "40-card Main Deck + 10-card Extra Deck",
+    "playstyle": "Blackwing · Synchro",
+    "combos": []
+  }
+]);
+Object.assign(deckLists, {
+  "yusei": {
+    "main": [
+      [
+        "Full-Speed Warrior",
+        1
+      ],
+      [
+        "Anchorbolt Hedgehog",
+        1
+      ],
+      [
+        "Crossroad Sonic Chick",
+        1
+      ],
+      [
+        "Scrap Synchron",
+        1
+      ],
+      [
+        "Synchro Fellowship",
+        1
+      ],
+      [
+        "One-Way Synchro",
+        1
+      ],
+      [
+        "Junk Synchron",
+        2
+      ],
+      [
+        "Wheel Synchron",
+        1
+      ],
+      [
+        "Stardust Synchron",
+        3
+      ],
+      [
+        "Revolution Synchron",
+        1
+      ],
+      [
+        "Satellite Synchron",
+        1
+      ],
+      [
+        "Assault Synchron",
+        1
+      ],
+      [
+        "Jet Synchron",
+        1
+      ],
+      [
+        "Junk Converter",
+        3
+      ],
+      [
+        "Doppelwarrior",
+        1
+      ],
+      [
+        "Effect Veiler",
+        2
+      ],
+      [
+        "Ash Blossom & Joyous Spring",
+        1
+      ],
+      [
+        "Mulcharmy Purulia",
+        1
+      ],
+      [
+        "On Your Mark, Get Set, DUEL!",
+        2
+      ],
+      [
+        "Tuning",
+        3
+      ],
+      [
+        "Duelist Genesis",
+        1
+      ],
+      [
+        "Synchro Rumble",
+        1
+      ],
+      [
+        "Clashing Souls",
+        1
+      ],
+      [
+        "Scrap Fist",
+        1
+      ],
+      [
+        "One for One",
+        1
+      ],
+      [
+        "Scrapyard",
+        1
+      ],
+      [
+        "Called by the Grave",
+        1
+      ],
+      [
+        "Crossout Designator",
+        1
+      ],
+      [
+        "Forbidden Droplet",
+        1
+      ],
+      [
+        "Synchro Zone",
+        1
+      ],
+      [
+        "Infinite Impermanence",
+        1
+      ]
+    ],
+    "extra": [
+      [
+        "Junk Warrior Extreme",
+        1
+      ],
+      [
+        "Scrap Warrior",
+        1
+      ],
+      [
+        "Junk Warrior",
+        1
+      ],
+      [
+        "Junk Speeder",
+        1
+      ],
+      [
+        "Stardust Dragon",
+        1
+      ],
+      [
+        "Accel Synchro Stardust Dragon",
+        1
+      ],
+      [
+        "Formula Synchron",
+        1
+      ],
+      [
+        "Stardust Warrior",
+        1
+      ],
+      [
+        "Shooting Star Dragon",
+        1
+      ],
+      [
+        "Crimson Dragon",
+        1
+      ]
+    ],
+    "bonus": "Fixed bonuses: chibi Stardust Dragon (an alternate art Extra Deck copy) and a Yusei Token."
+  },
+  "akiza": {
+    "main": [
+      [
+        "Lonefire Blossom",
+        3
+      ],
+      [
+        "Witch of the Black Rose",
+        1
+      ],
+      [
+        "Spore",
+        1
+      ],
+      [
+        "Rose Lover",
+        1
+      ],
+      [
+        "Blue Rose Dragon",
+        1
+      ],
+      [
+        "Ghost Ogre & Snow Rabbit",
+        2
+      ],
+      [
+        "Red Rose Dragon",
+        3
+      ],
+      [
+        "White Rose Dragon",
+        3
+      ],
+      [
+        "Ghost Sister & Spooky Dogwood",
+        1
+      ],
+      [
+        "Rose Princess",
+        1
+      ],
+      [
+        "Rose Girl",
+        1
+      ],
+      [
+        "Roxrose Dragon",
+        3
+      ],
+      [
+        "Ruddy Rose Witch",
+        3
+      ],
+      [
+        "Mulcharmy Meowls",
+        1
+      ],
+      [
+        "Monster Reborn",
+        1
+      ],
+      [
+        "Terraforming",
+        1
+      ],
+      [
+        "Miracle Fertilizer",
+        2
+      ],
+      [
+        "Black Garden",
+        2
+      ],
+      [
+        "Fragrance Storm",
+        1
+      ],
+      [
+        "Thorn of Malice",
+        1
+      ],
+      [
+        "Frozen Rose",
+        1
+      ],
+      [
+        "White Rose Cloister",
+        1
+      ],
+      [
+        "Basal Rose Shoot",
+        2
+      ],
+      [
+        "Infinite Impermanence",
+        2
+      ],
+      [
+        "Blooming of the Darkest Rose",
+        1
+      ]
+    ],
+    "extra": [
+      [
+        "Black Rose Dragon",
+        1
+      ],
+      [
+        "Splendid Rose",
+        1
+      ],
+      [
+        "Black Rose Moonlight Dragon",
+        1
+      ],
+      [
+        "Garden Rose Maiden",
+        1
+      ],
+      [
+        "Crossrose Dragon",
+        2
+      ],
+      [
+        "Periallis, Empress of Blossoms",
+        1
+      ],
+      [
+        "Ruddy Rose Dragon",
+        2
+      ],
+      [
+        "Garden Rose Flora",
+        1
+      ]
+    ],
+    "bonus": "Fixed bonuses: chibi Black Rose Dragon (an alternate art Extra Deck copy) and a Akiza Token."
+  },
+  "crow": {
+    "main": [
+      [
+        "Blackwing - Gale the Whirlwind",
+        1
+      ],
+      [
+        "Blackwing - Bora the Spear",
+        1
+      ],
+      [
+        "Blackwing - Vayu the Emblem of Honor",
+        1
+      ],
+      [
+        "Droll & Lock Bird",
+        2
+      ],
+      [
+        "Blackwing - Kris the Crack of Dawn",
+        1
+      ],
+      [
+        "Blackwing - Sharnga the Waning Moon",
+        1
+      ],
+      [
+        "Blackwing - Oroshi the Squall",
+        1
+      ],
+      [
+        "Blackwing - Harmattan the Dust",
+        1
+      ],
+      [
+        "Ash Blossom & Joyous Spring",
+        2
+      ],
+      [
+        "Blackwing - Simoon the Poison Wind",
+        3
+      ],
+      [
+        "Ghost Mourner & Moonlit Chill",
+        1
+      ],
+      [
+        "Blackwing - Vata the Emblem of Wandering",
+        3
+      ],
+      [
+        "Blackwing - Shamal the Sandstorm",
+        3
+      ],
+      [
+        "Blackwing - Chinook the Snow Blast",
+        3
+      ],
+      [
+        "Blackwing - Sudri the Phantom Glimmer",
+        3
+      ],
+      [
+        "Mulcharmy Fuwalos",
+        1
+      ],
+      [
+        "Mystical Space Typhoon",
+        1
+      ],
+      [
+        "Book of Moon",
+        1
+      ],
+      [
+        "Black Whirlwind",
+        2
+      ],
+      [
+        "Forbidden Chalice",
+        1
+      ],
+      [
+        "Called by the Grave",
+        1
+      ],
+      [
+        "Black Feather Whirlwind",
+        2
+      ],
+      [
+        "Icarus Attack",
+        1
+      ],
+      [
+        "Delta Crow - Anti Reverse",
+        1
+      ],
+      [
+        "Blackbird Close",
+        1
+      ],
+      [
+        "Blackwing - Twin Shadow",
+        1
+      ]
+    ],
+    "extra": [
+      [
+        "Blackwing Armor Master",
+        1
+      ],
+      [
+        "Blackwing Armed Wing",
+        1
+      ],
+      [
+        "Blackwing - Silverwind the Ascendant",
+        1
+      ],
+      [
+        "Black-Winged Dragon",
+        1
+      ],
+      [
+        "Blackwing - Nothung the Starlight",
+        1
+      ],
+      [
+        "Blackwing Full Armor Master",
+        1
+      ],
+      [
+        "Black-Winged Assault Dragon",
+        2
+      ],
+      [
+        "Blackwing - Boreastorm the Wicked Wind",
+        2
+      ]
+    ],
+    "bonus": "Fixed bonuses: chibi Black-Winged Dragon (an alternate art Extra Deck copy) and a Crow Token."
+  }
+});
 const picker=document.getElementById('deck-picker'),content=document.getElementById('deck-content');let activeDeck=0,activeCombo=0,activeStep=0;
 
 const cardDataCache=new Map();
@@ -26,7 +517,7 @@ const detailClose=document.getElementById('card-detail-close');
 let lastCardTrigger=null,currentDetailRequest=0;
 function escapeCardText(value){return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function getCardInfo(name){if(!cardDataCache.has(name)){const request=fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?name='+encodeURIComponent(name)).then(response=>{if(!response.ok)throw Error('Card lookup failed');return response.json()}).then(data=>{const card=data&&data.data&&data.data[0];if(!card)throw Error('No card details returned');return card}).catch(error=>{cardDataCache.delete(name);throw error});cardDataCache.set(name,request)}return cardDataCache.get(name)}
-function renderDecklist(list){const section=(title,cards)=>{const total=cards.reduce((sum,card)=>sum+card[1],0);return '<section class="decklist-group"><div class="decklist-group-heading"><h3>'+title+'</h3><span>'+total+' cards</span></div><div class="deck-card-grid">'+cards.map(([name,qty])=>'<button type="button" class="deck-card-tile" data-card-name="'+escapeCardText(name)+'" aria-label="View details for '+escapeCardText(name)+'; quantity '+qty+'" aria-haspopup="dialog" aria-controls="card-detail-overlay"><span class="deck-card-image-wrap"><img class="deck-card-image" data-card-name="'+escapeCardText(name)+'" alt="'+escapeCardText(name)+' card image" loading="lazy"><span class="deck-card-qty">×'+qty+'</span><span class="deck-card-image-fallback" aria-hidden="true">'+escapeCardText(name.split(' ').slice(0,2).map(x=>x[0]).join(''))+'</span></span><b>'+escapeCardText(name)+'</b></button>').join('')+'</div></section>'};return '<section class="decklist-gallery" id="decklist" aria-label="Fixed decklist"><div class="decklist-gallery-heading"><h2>Decklist</h2></div>'+section('Main Deck',list.main)+section('Extra Deck',list.extra)+'</section>'}
+function renderDecklist(list){const section=(title,cards)=>{const total=cards.reduce((sum,card)=>sum+card[1],0);return '<section class="decklist-group"><div class="decklist-group-heading"><h3>'+title+'</h3><span>'+total+' cards</span></div><div class="deck-card-grid">'+cards.map(([name,qty])=>'<button type="button" class="deck-card-tile" data-card-name="'+escapeCardText(name)+'" aria-label="View details for '+escapeCardText(name)+'; quantity '+qty+'" aria-haspopup="dialog" aria-controls="card-detail-overlay"><span class="deck-card-image-wrap"><img class="deck-card-image" data-card-name="'+escapeCardText(name)+'" alt="'+escapeCardText(name)+' card image" loading="lazy"><span class="deck-card-qty">×'+qty+'</span><span class="deck-card-image-fallback" aria-hidden="true">'+escapeCardText(name.split(' ').slice(0,2).map(x=>x[0]).join(''))+'</span></span><b>'+escapeCardText(name)+'</b></button>').join('')+'</div></section>'};return '<section class="decklist-gallery" id="decklist" aria-label="Fixed decklist"><div class="decklist-gallery-heading"><h2>Decklist</h2></div>'+section('Main Deck',list.main)+section('Extra Deck',list.extra)+(list.bonus?'<p>'+escapeCardText(list.bonus)+'</p>':'')+'</section>'}
 function loadDeckCardImages(root=content){const imgs=[...root.querySelectorAll('.deck-card-image[data-card-name]')];const load=img=>{const name=img.dataset.cardName;if(img.dataset.loading)return;img.dataset.loading='true';getCardInfo(name).then(card=>{const image=card.card_images&&card.card_images[0];const url=image&&(image.image_url_small||image.image_url);if(!url)throw Error('No card image');img.src=url;img.classList.add('loaded')}).catch(()=>{img.closest('.deck-card-image-wrap')?.classList.add('image-unavailable')})};if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){load(entry.target);observer.unobserve(entry.target)}}),{rootMargin:'160px'});imgs.forEach(img=>observer.observe(img))}else imgs.forEach(load)}
 function getCardTypeLine(card){const type=String(card.type||'').trim();if(type.includes('Monster')){const subtypes=type.replace(/\s*Monster$/i,'').trim().split(/\s+/).filter(Boolean).join(' / ');return [card.race,subtypes].filter(Boolean).join(' / ')}if(type.includes('Spell'))return ['Spell',card.race].filter(Boolean).join(' / ');if(type.includes('Trap'))return ['Trap',card.race].filter(Boolean).join(' / ');return type}
 function getCardLevelLabel(card){if(Number(card.linkval)>0)return 'LINK-'+card.linkval;if(card.level!==undefined&&card.level!==null)return (String(card.type||'').toLowerCase().includes('xyz')?'RANK ':'LEVEL ')+card.level;return ''}
@@ -165,12 +656,18 @@ function comboFieldBoardMarkup(field, heading, note, handEntries) {
 function comboTextOnlyMarkup(combo, stepIndex, handVisual=[]) {
   const discardCount=(handVisual||[]).filter(item=>item&&!item.card&&/discard/i.test((item.label||'')+' '+(item.requirements||''))).reduce((sum,item)=>sum+Math.max(1,Number(item.qty)||1),0);
   const backArt=discardCount?'<div class="combo-mobile-cardbacks" role="img" aria-label="Card-back placeholders for generic discard cards">'+Array.from({length:discardCount},()=>'<span class="combo-mobile-cardback"><img class="combo-card-back-art" src="card-back.svg" alt="Yu-Gi-Oh! card back" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="combo-card-back-fallback" hidden aria-hidden="true"></span></span>').join('')+'</div>':'';
-  return '<div class="combo-text-only"><div class="opening-hand"><b>Starting hand</b><span>'+escapeCardText(combo.hand)+'</span>'+backArt+'</div>'+
-    '<div class="line-condition"><b>Before you start</b><span>'+escapeCardText(combo.condition)+'</span></div><div class="step-grid">'+
-    combo.steps.map((step,i)=>'<article class="line-step '+(i===stepIndex?'current':'')+'"><span>STEP '+(i+1)+'</span><p>'+escapeCardText(step)+'</p></article>').join('')+
-    '</div><div class="line-result"><b>Line result</b><span>'+escapeCardText(combo.result)+'</span></div><div class="combo-actions">'+
-    '<button type="button" class="line-prev" '+(stepIndex===0?'disabled':'')+'>← Previous</button><span class="step-count">STEP '+(stepIndex+1)+' OF '+combo.steps.length+'</span>'+
-    '<button type="button" class="line-next next">'+(stepIndex===combo.steps.length-1?'Restart line ↺':'Next step →')+'</button></div></div>';
+  const setup = '<div class="opening-hand"><b>Starting hand</b><span>'+escapeCardText(combo.hand)+'</span>'+backArt+'</div>'+
+    '<div class="line-condition"><b>Starting field and conditions</b><span>'+escapeCardText(combo.condition)+'</span></div>';
+  const step = stepIndex === 0 ? '<div>'+setup+'</div>' : '<p>'+escapeCardText(combo.steps[stepIndex-1])+'</p>';
+  return '<div class="combo-text-only"><article class="line-step current"><span>STEP '+stepIndex+'</span>'+step+'</article>'+
+    comboResultAndControls(combo,stepIndex)+'</div>';
+}
+
+function comboResultAndControls(combo, stepIndex) {
+  return '<div class="line-result"><b>Line result</b><span>'+escapeCardText(combo.result)+'</span></div><div class="combo-actions">'+
+    '<button type="button" class="line-prev" '+(stepIndex===0?'disabled':'')+'>← Previous</button><span class="step-count">STEP '+stepIndex+' OF '+combo.steps.length+'</span>'+
+    '<button type="button" class="line-next next">'+(stepIndex===combo.steps.length?'Restart line ↺':'Next step →')+'</button></div>';
+
 }
 function comboBoardZones(field, state, deckListsForDeck, baseHandNames) {
   const source=deckListsForDeck||{main:[],extra:[]};
@@ -194,48 +691,54 @@ function comboBoardZones(field, state, deckListsForDeck, baseHandNames) {
   });
 }
 function comboVisualMarkup(combo, visual, stepIndex) {
-  const step=visual.steps[stepIndex]||visual.steps[0],flow=step.flow||{};
-  const piles=visual.piles&&visual.piles[stepIndex]||{grave:[],banished:[]};
-  const zoneState=visual.zoneStates&&visual.zoneStates[stepIndex]||{hand:[]};
+  const steps = ['Starting hand & fields', ...visual.steps.map((item,i)=>item.flow?.action || 'Step '+(i+1))];
+  const nav = '<nav class="combo-visual-step-nav" aria-label="Choose a combo step">'+steps.map((label,i)=>
+    '<button type="button" class="'+(i===stepIndex?'active':'')+'" data-visual-step="'+i+'" aria-current="'+(i===stepIndex?'step':'false')+'"><span>'+String(i).padStart(2,'0')+'</span>'+escapeCardText(label)+'</button>').join('')+'</nav>';
   const mainOpenerNames=(visual.hand||[]).concat(Object.values(visual.fieldBefore||{})).flatMap(item=>item&&item.card?Array.from({length:Math.max(1,Number(item.qty)||1)},()=>item.card):[]);
   const openingUnknown=(visual.hand||[]).concat(Object.values(visual.fieldBefore||{})).filter(item=>item&&!item.card).reduce((sum,item)=>sum+Math.max(1,Number(item.qty)||1),0);
   const startingState={hand:visual.hand||[],grave:[],banished:[],mainUnknownRemoved:openingUnknown};
   const startingBoard=comboBoardZones(Object.assign({},visual.fieldBefore||{},{grave:[],banished:[]}),startingState,visual.deckLists,mainOpenerNames);
-  const stepState=Object.assign({},zoneState,{grave:piles.grave||[],banished:piles.banished||[],mainUnknownRemoved:openingUnknown+(Number(zoneState.mainUnknownRemoved)||0)});
-  const stepBoard=comboBoardZones(step.fieldAfter||{},stepState,visual.deckLists,mainOpenerNames);
-  const nav=visual.steps.map((item,i)=>'<button type="button" class="'+(i===stepIndex?'active':'')+'" data-visual-step="'+i+'" aria-current="'+(i===stepIndex?'step':'false')+'"><span>0'+(i+1)+'</span>'+escapeCardText(item.flow&&item.flow.action||('Step '+(i+1)))+'</button>').join('');
-  return '<div class="combo-visual-desktop"><section class="combo-visual-panel combo-setup-panel"><div class="combo-visual-panel-heading"><h3>Starting hand</h3><p>Required opening cards</p></div><div class="combo-hand-cards">'+
-    comboStartingHandMarkup(visual.hand)+'</div><div class="combo-start-condition"><b>Before you start</b><span>'+escapeCardText(combo.condition)+'</span></div></section>'+
-    comboFieldBoardMarkup(startingBoard,'Starting field','Cards already on the field before step 1.',visual.hand||[])+
-    (visual.opponentBefore?comboFieldBoardMarkup(visual.opponentBefore,'Opponent field at start','Relevant opposing cards before the combo begins.'): '')+
-    '<nav class="combo-visual-step-nav" aria-label="Choose a combo step">'+nav+'</nav><section class="combo-visual-panel combo-step-visual-panel">'+
-    '<div class="combo-visual-panel-heading"><h3>Step '+(stepIndex+1)+' of '+combo.steps.length+'</h3><p>'+escapeCardText(combo.steps[stepIndex])+'</p></div>'+
-    ((flow.action||'').toLowerCase().includes('pendulum scale')&&/activate/i.test(flow.action)?'<div class="combo-scale-activation"><div class="combo-flow-cards">'+(flow.inputs||[]).map(card=>comboVisualCardMarkup(card,'combo-flow-card')).join('')+'</div><strong>'+escapeCardText(flow.action)+'</strong></div>':'<div class="combo-card-flow"><div class="combo-flow-cards">'+(flow.inputs||[]).map(card=>comboVisualCardMarkup(card,'combo-flow-card')).join('')+'</div>'+ 
-    '<div class="combo-flow-arrow"><span>'+escapeCardText(flow.action||'Continue')+'</span><b aria-hidden="true">→</b></div>'+ 
-    '<div class="combo-flow-cards">'+(flow.outputs||[]).map(card=>comboVisualCardMarkup(card,'combo-flow-card')).join('')+'</div></div>')+'</section>'+
-    comboFieldBoardMarkup(stepBoard,'Step '+(stepIndex+1),'',zoneState.hand||[])+
-    (step.opponentAfter?comboFieldBoardMarkup(step.opponentAfter,'Opponent field after step '+(stepIndex+1),'Opponent cards remaining after this step.'): '')+
-    '<div class="line-result"><b>Line result</b><span>'+escapeCardText(combo.result)+'</span></div><div class="combo-actions">'+
-    '<button type="button" class="line-prev" '+(stepIndex===0?'disabled':'')+'>← Previous</button><span class="step-count">STEP '+(stepIndex+1)+' OF '+combo.steps.length+'</span>'+
-    '<button type="button" class="line-next next">'+(stepIndex===combo.steps.length-1?'Restart line ↺':'Next step →')+'</button></div></div>'+comboTextOnlyMarkup(combo,stepIndex,visual.hand);
+  let body;
+  if (stepIndex === 0) {
+    body = '<section class="combo-visual-panel"><h3>Step 0 · Starting hand &amp; fields</h3><p>'+escapeCardText(combo.condition)+'</p></section>'+
+      comboFieldBoardMarkup(startingBoard,'Starting field','',visual.hand||[])+
+      (visual.opponentBefore?comboFieldBoardMarkup(visual.opponentBefore,'Opponent starting field',''):'');
+  } else {
+    const i = stepIndex - 1;
+    const step = visual.steps[i], flow = step.flow || {};
+    const piles = visual.piles[i] || {}, zoneState = visual.zoneStates[i] || {};
+    const stepState = {...zoneState,grave:piles.grave||[],banished:piles.banished||[],mainUnknownRemoved:openingUnknown+(Number(zoneState.mainUnknownRemoved)||0)};
+    const stepBoard = comboBoardZones(step.fieldAfter||{},stepState,visual.deckLists,mainOpenerNames);
+    const inputs = flow.inputs || [], outputs = flow.outputs || [];
+    const cards = entries => '<div class="combo-flow-cards">'+entries.map(card=>comboVisualCardMarkup(card,'combo-flow-card')).join('')+'</div>';
+    const hasArrow = inputs.length && outputs.length && !flow.showSourceOnly;
+    const diagram = hasArrow
+      ? '<div class="combo-card-flow">'+cards(inputs)+'<div class="combo-flow-arrow"><span>'+escapeCardText(flow.action||'')+'</span><b aria-hidden="true">→</b></div>'+cards(outputs)+'</div>'
+      : '<div class="combo-scale-activation">'+cards(inputs.length?inputs:outputs)+'<strong>'+escapeCardText(flow.action||'')+'</strong></div>';
+    body = '<section class="combo-visual-panel combo-step-visual-panel"><div class="combo-visual-panel-heading"><h3>Step '+stepIndex+' of '+combo.steps.length+'</h3><p>'+escapeCardText(combo.steps[i])+'</p></div>'+diagram+'</section>'+
+      comboFieldBoardMarkup(stepBoard,'Step '+stepIndex,'',zoneState.hand||[])+
+      (step.opponentAfter?comboFieldBoardMarkup(step.opponentAfter,'Opponent field after step '+stepIndex,''):'');
+  }
+  return '<div class="combo-visual-desktop">'+nav+body+comboResultAndControls(combo,stepIndex)+'</div>'+comboTextOnlyMarkup(combo,stepIndex,visual.hand);
 }
 function renderDeck() {
   const deck=decks[activeDeck];
-  picker.innerHTML=decks.map((item,i)=>'<button role="tab" aria-selected="'+(i===activeDeck)+'" class="'+(i===activeDeck?'active':'')+'" data-deck="'+i+'"><b>'+escapeCardText(item.name)+'</b><span>'+(item.product?'Structure Deck':'Custom Deck')+'</span></button>').join('');
+  picker.innerHTML=decks.map((item,i)=>'<button role="tab" aria-selected="'+(i===activeDeck)+'" class="'+(i===activeDeck?'active':'')+'" data-deck="'+i+'"><b>'+escapeCardText(item.name)+'</b><span>'+escapeCardText(item.product==='Legendary 5D’s Decks'?item.product:item.product?'Structure Deck':'Custom Deck')+'</span></button>').join('');
   picker.querySelectorAll('[data-deck]').forEach(button=>button.addEventListener('click',()=>{activeDeck=Number(button.dataset.deck);activeCombo=0;activeStep=0;renderDeck()}));
-  const combo=deck.combos[activeCombo];activeStep=Math.min(activeStep,combo.steps.length-1);
-  const key=deck.id+'|'+combo.title;
+  const combo=deck.combos[activeCombo];
+  if(combo)activeStep=Math.min(activeStep,combo.steps.length);
+  const key=combo && deck.id+'|'+combo.title;
   const visual=(window.comboVisuals||{})[key];
   if(visual){visual.piles=(window.comboPileStates||{})[key]||visual.steps.map(()=>({grave:[],banished:[]}));visual.zoneStates=(window.comboZoneStates||{})[key]||visual.steps.map(()=>({hand:[]}));visual.deckLists=deckLists[deck.id];}
-  const markup=visual?comboVisualMarkup(combo,visual,activeStep):comboTextOnlyMarkup(combo,activeStep);
-  content.innerHTML='<article class="deck-overview"><div class="deck-art '+deck.id+'"><img class="boss-art" src="'+deck.art+'" alt="'+escapeCardText(deck.boss)+' card artwork" loading="lazy"><b>'+escapeCardText(deck.boss)+'</b><small>'+escapeCardText(deck.name+' · '+deck.subtitle)+'</small></div><div class="deck-summary"><h2>'+escapeCardText(deck.name)+'</h2><div class="deck-facts"><span class="deck-fact">'+escapeCardText(deck.fixed)+'</span><span class="deck-fact">'+escapeCardText(deck.playstyle)+'</span></div><div class="deck-section-jumps"><a href="#decklist">View Decklist</a><a href="#combo-lines">View Combo Lines</a></div></div></article>'+
+  const markup=combo?(visual?comboVisualMarkup(combo,visual,activeStep):comboTextOnlyMarkup(combo,activeStep)):'<p>No combo lines are available for this deck yet.</p>';
+  content.innerHTML='<article class="deck-overview"><div class="deck-art '+deck.id+'"><img class="boss-art" src="'+deck.art+'" alt="'+escapeCardText(deck.boss)+' card artwork" loading="lazy"><b>'+escapeCardText(deck.boss)+'</b><small>'+escapeCardText(deck.name+' · '+deck.subtitle)+'</small></div><div class="deck-summary"><h2>'+escapeCardText(deck.name)+'</h2><div class="deck-facts"><span class="deck-fact">'+escapeCardText(deck.fixed)+'</span><span class="deck-fact">'+escapeCardText(deck.playstyle)+'</span></div><div class="deck-section-jumps"><a href="#decklist">View Decklist</a><a href="#combo-lines">View Combo Lines</a></div></div></article>'+renderDecklist(deckLists[deck.id])+
     '<section class="combo-tutorial'+(visual?' has-visual':'')+'" id="combo-lines"><div class="section-heading"><div><h2>Combo Lines</h2></div></div>'+
-    '<div class="combo-tabs">'+deck.combos.map((item,i)=>'<button type="button" class="'+(i===activeCombo?'active':'')+'" data-combo="'+i+'">'+(i+1)+'. '+escapeCardText(item.title)+'</button>').join('')+'</div><div class="line-card">'+markup+'</div></section>'+renderDecklist(deckLists[deck.id]);
+    '<div class="combo-tabs">'+deck.combos.map((item,i)=>'<button type="button" class="'+(i===activeCombo?'active':'')+'" data-combo="'+i+'">'+(i+1)+'. '+escapeCardText(item.title)+'</button>').join('')+'</div><div class="line-card">'+markup+'</div></section>';
   loadDeckCardImages();
   content.querySelectorAll('[data-combo]').forEach(button=>button.addEventListener('click',()=>{activeCombo=Number(button.dataset.combo);activeStep=0;renderDeck()}));
   content.querySelectorAll('[data-visual-step]').forEach(button=>button.addEventListener('click',()=>{activeStep=Number(button.dataset.visualStep);renderDeck()}));
   content.querySelectorAll('.line-prev').forEach(button=>button.addEventListener('click',()=>{activeStep=Math.max(0,activeStep-1);renderDeck()}));
-  content.querySelectorAll('.line-next').forEach(button=>button.addEventListener('click',()=>{activeStep=activeStep===combo.steps.length-1?0:activeStep+1;renderDeck()}));
+  content.querySelectorAll('.line-next').forEach(button=>button.addEventListener('click',()=>{activeStep=activeStep===combo.steps.length?0:activeStep+1;renderDeck()}));
 }
 content.addEventListener('click',event=>{const pile=event.target.closest('.combo-pile-trigger');if(pile){openPileWindow(pile);return}const generic=event.target.closest('.combo-visual-card[data-generic-preview]');if(generic){openGenericCardPreview(generic);return}const button=event.target.closest('.combo-visual-card[data-card-name]');if(button)openCardDetails(button.dataset.cardName,button)});
 renderDeck();
