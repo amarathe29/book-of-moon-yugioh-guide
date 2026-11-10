@@ -53,8 +53,8 @@
   });
   nav.addEventListener('keydown', event => {
     let next = current;
-    if (event.key === 'ArrowRight') next = Math.min(topics.length - 1, current + 1);
-    else if (event.key === 'ArrowLeft') next = Math.max(0, current - 1);
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = Math.min(topics.length - 1, current + 1);
+    else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = Math.max(0, current - 1);
     else if (event.key === 'Home') next = 0;
     else if (event.key === 'End') next = topics.length - 1;
     else return;
