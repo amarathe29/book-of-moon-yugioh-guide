@@ -798,6 +798,228 @@ function comboVisualMarkup(combo, visual, stepIndex) {
   }
   return '<div class="combo-visual-desktop">'+nav+body+comboResultAndControls(combo,stepIndex)+'</div>'+comboTextOnlyMarkup(combo,stepIndex,visual);
 }
+const starterAccess={
+  "yusei": [
+    {
+      "name": "Tuning",
+      "text": "Adds a “Synchron” Tuner such as Junk Synchron, then sends the top card of your Deck to the Graveyard. It does not add Full-Speed Warrior, so it does not reproduce the illustrated opener on its own.",
+      "url": "https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=1&keyword=Tuning&request_locale=en"
+    }
+  ],
+  "akiza": [
+    {
+      "name": "Roxrose Dragon",
+      "text": "On Normal or Special Summon, it can add a card that mentions Black Rose Dragon, such as Basal Rose Shoot. This supplies follow-up; the illustrated Synchro route still needs White Rose Dragon.",
+      "url": "https://www.db.yugioh-card.com/yugiohdb/card_search.action?cid=15970&ope=2&request_locale=en"
+    }
+  ],
+  "crow": [
+    {
+      "name": "Black Whirlwind",
+      "text": "If already face-up when you Normal Summon Sudri, it can add Vata from your Deck (800 ATK is less than Sudri’s 1400 ATK). The illustrated route can then continue with Vata in hand.",
+      "url": "https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=1&keyword=Black%20Whirlwind&request_locale=en"
+    }
+  ],
+  "speedroid": [
+    {
+      "name": "Speedroid Scratch",
+      "text": "Send another Speedroid card from your hand to the Graveyard to add Terrortop or Marble Machine from your Deck. This requires an additional Speedroid card, so Scratch alone is not a one-card starter.",
+      "url": "https://www.db.yugioh-card.com/yugiohdb/card_search.action?cid=16429&ope=2&request_locale=en"
+    },
+    {
+      "name": "Speedroid Marble Machine",
+      "text": "Its Normal Summon can search Terrortop, but that uses your Normal Summon. You cannot then follow the illustrated Terrortop line unchanged, because it Normal Summons Marble Machine.",
+      "url": "https://www.db.yugioh-card.com/yugiohdb/card_search.action?cid=14339&ope=2&request_locale=en"
+    }
+  ],
+  "chronicles": [
+    {
+      "name": "Aluber the Jester of Despia",
+      "text": "Normal or Special Summon Aluber to add Branded Fusion from your Deck. This can lead into the Rindbrumm route if its listed materials remain available.",
+      "url": "https://www.db.yugioh-card.com/yugiohdb/card_search.action?cid=16195&ope=2&request_locale=en"
+    },
+    {
+      "name": "Branded Opening",
+      "text": "Discard a card, then Special Summon Aluber from your Deck in Defense Position; Aluber can add Branded Fusion. Opening restricts your Extra Deck Special Summons to Fusion Monsters after it resolves.",
+      "url": "https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=1&keyword=Branded%20Opening&request_locale=en"
+    }
+  ],
+  "lunalight": [
+    {
+      "name": "Fire Formation - Tenki",
+      "text": "Add Level 4 Beast-Warrior Lunalight Gold Leo from your Deck to your hand. Gold Leo is a one-card starting point for Konami’s published Lunalight route; the Liger Dancer tutorial below illustrates a different, multi-card line.",
+      "url": "https://www.db.yugioh-card.com/yugiohdb/card_search.action?cid=10418&ope=2&request_locale=en"
+    }
+  ],
+  "odd-eyes": [
+    {
+      "name": "Performapal Skullcrobat Joker",
+      "text": "Normal Summon it to search an eligible Odd-Eyes Pendulum Monster, such as Persona Dragon or Mirage Dragon. You still need the other cards for the chosen illustrated route.",
+      "url": "https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=1&keyword=Performapal%20Skullcrobat%20Joker&request_locale=en"
+    }
+  ]
+};
+const starterGuides={
+  "odd-eyes": {
+    "plan": "Use Pendulum Scales to summon multiple monsters, then turn them into Xyz or Link monsters. Dissolver offers a Fusion route.",
+    "routes": [
+      {
+        "title": "Two scales into Odd-Eyes Absolute Dragon",
+        "cards": [
+          "Odd-Eyes Persona Dragon",
+          "Odd-Eyes Mirage Dragon"
+        ]
+      },
+      {
+        "title": "Dissolver into Odd-Eyes Vortex Dragon",
+        "cards": [
+          "Performapal Odd-Eyes Dissolver",
+          "Odd-Eyes Arc Pendulum Dragon"
+        ]
+      }
+    ]
+  },
+  "lunalight": {
+    "plan": "Fusion Summon Lunalight monsters and use their Graveyard effects to recover cards and continue playing.",
+    "routes": [
+      {
+        "title": "Lunalight Fusion into Liger Dancer",
+        "cards": [
+          "Lunalight Fusion",
+          "Lunalight Gold Leo"
+        ]
+      },
+      {
+        "title": "Perfume Dancer with Kaleido Chick follow-up",
+        "cards": [
+          "Polymerization",
+          "Lunalight Kaleido Chick"
+        ]
+      }
+    ]
+  },
+  "speedroid": {
+    "plan": "Use Speedroid searches and WIND Tuners to climb into Synchro Monsters. Watch for WIND-only restrictions.",
+    "routes": [
+      {
+        "title": "Terrortop into Clear Wing Synchro Dragon",
+        "cards": [
+          "Speedroid Terrortop"
+        ]
+      },
+      {
+        "title": "Marble Machine into Hi-Speedroid Chanbara",
+        "cards": [
+          "Speedroid Marble Machine"
+        ]
+      },
+      {
+        "title": "Wing Synchron into Crystal Clear Wing Over",
+        "cards": [
+          "Speedroid Wing Synchron",
+          "Speedroid Marble Machine"
+        ]
+      }
+    ]
+  },
+  "chronicles": {
+    "plan": "Use Fallen of Albaz and Fusion effects to summon Dragons, then turn their Graveyard effects into follow-up.",
+    "routes": [
+      {
+        "title": "Branded Fusion into Rindbrumm",
+        "cards": [
+          "Branded Fusion"
+        ]
+      },
+      {
+        "title": "Branded Fusion into Mirrorjade",
+        "cards": [
+          "Branded Fusion",
+          "Branded in Red"
+        ]
+      }
+    ]
+  },
+  "yusei": {
+    "plan": "Use Full-Speed Warrior to find Synchro Fellowship, build into Junk Speeder, and summon more Synchron Tuners.",
+    "routes": [
+      {
+        "title": "Full-Speed Warrior into Junk Warrior Extreme",
+        "cards": [
+          "Full-Speed Warrior",
+          "Synchro Fellowship"
+        ]
+      },
+      {
+        "title": "Full-Speed Warrior into Stardust Warrior",
+        "cards": [
+          "Full-Speed Warrior",
+          "Junk Speeder"
+        ]
+      },
+      {
+        "title": "Full-Speed Warrior with Anchorbolt discard",
+        "cards": [
+          "Full-Speed Warrior",
+          "Anchorbolt Hedgehog"
+        ]
+      }
+    ]
+  },
+  "akiza": {
+    "plan": "Pair a Rose Dragon Tuner with White Rose Dragon, then use your Synchro materials to continue into more Rose Dragons.",
+    "routes": [
+      {
+        "title": "Roxrose and White Rose into Black Rose Dragon",
+        "cards": [
+          "Roxrose Dragon",
+          "White Rose Dragon"
+        ]
+      },
+      {
+        "title": "Red Rose and White Rose into Ruddy Rose Dragon",
+        "cards": [
+          "Red Rose Dragon",
+          "White Rose Dragon"
+        ]
+      }
+    ]
+  },
+  "crow": {
+    "plan": "Combine Blackwing monsters to Synchro Summon, then use Black Feather Whirlwind to bring back material for another Synchro Summon.",
+    "routes": [
+      {
+        "title": "Boreastorm into Blackwing Full Armor Master",
+        "cards": [
+          "Blackwing - Sudri the Phantom Glimmer",
+          "Blackwing - Vata the Emblem of Wandering"
+        ]
+      },
+      {
+        "title": "Full Armor Master with Twin Shadow follow-up",
+        "cards": [
+          "Blackwing - Sudri the Phantom Glimmer",
+          "Blackwing - Twin Shadow"
+        ]
+      }
+    ]
+  }
+};
+
+function renderStarterGuide(deck) {
+  const guide=starterGuides[deck.id];
+  if(!guide)return '';
+  const routes=guide.routes.map(route=>{
+    const index=deck.combos.findIndex(combo=>combo.title===route.title);
+    if(index<0)return '';
+    const combo=deck.combos[index];
+    const art=route.cards.map(card=>comboVisualCardMarkup({card},'starter-guide-card')).join('');
+    const badge=combo.hand.includes(' + ')?'Additional cards required':'One-card start';
+    return '<article class="starter-route"><div class="starter-route-art" aria-label="Key cards">'+art+'</div><div class="starter-route-body"><span class="starter-badge">'+badge+'</span><h3>'+escapeCardText(combo.title)+'</h3><dl><div><dt>Starting hand</dt><dd>'+escapeCardText(combo.hand)+'</dd></div><div><dt>Setup</dt><dd>'+escapeCardText(combo.condition)+'</dd></div><div><dt>Result</dt><dd>'+escapeCardText(combo.result)+'</dd></div></dl><button type="button" data-start-combo="'+index+'">View combo →</button></div></article>';
+  }).join('');
+  const access=(starterAccess[deck.id]||[]).map(item=>'<li><strong>'+escapeCardText(item.name)+'</strong> — '+escapeCardText(item.text)+' <a href="'+escapeCardText(item.url)+'" target="_blank" rel="noopener noreferrer" aria-label="Official card details for '+escapeCardText(item.name)+'">Card details ↗</a></li>').join('');
+  return '<section class="starter-guide" id="starter-guide" aria-labelledby="starter-guide-title"><h2 id="starter-guide-title">Starter Guide</h2><p class="starter-plan">'+escapeCardText(guide.plan)+'</p><div class="starter-access"><h3>Finding your starters</h3><ul>'+access+'</ul></div><h3 class="starter-routes-heading">Starting routes</h3><div class="starter-routes">'+routes+'</div></section>';
+}
 function renderDeck() {
   const deck=decks[activeDeck];
   picker.innerHTML=decks.map((item,i)=>'<button role="tab" aria-selected="'+(i===activeDeck)+'" class="'+(i===activeDeck?'active':'')+'" data-deck="'+i+'" id="deck-tab-'+i+'" tabindex="'+(i===activeDeck?'0':'-1')+'" aria-controls="deck-content"><b>'+escapeCardText(item.name)+'</b><span>'+escapeCardText(item.product?.startsWith('THE CHRONICLES DECK')?'The Chronicles Deck':item.product||'Custom Deck')+'</span></button>').join('');
@@ -808,13 +1030,14 @@ function renderDeck() {
   const visual=(window.comboVisuals||{})[key];
   if(visual){visual.piles=(window.comboPileStates||{})[key]||visual.steps.map(()=>({grave:[],banished:[]}));visual.zoneStates=(window.comboZoneStates||{})[key]||visual.steps.map(()=>({hand:[]}));visual.deckLists=deckLists[deck.id];}
   const markup=combo?(visual?comboVisualMarkup(combo,visual,activeStep):comboTextOnlyMarkup(combo,activeStep)):'<p>No combo lines are available for this deck yet.</p>';
-  content.innerHTML='<article class="deck-overview"><div class="deck-art '+deck.id+'"><img class="boss-art" src="'+deck.art+'" alt="'+escapeCardText(deck.boss)+' card artwork" loading="lazy"><b>'+escapeCardText(deck.boss)+'</b><small>'+escapeCardText(deck.name+' · '+deck.subtitle)+'</small></div><div class="deck-summary"><h2>'+escapeCardText(deck.name)+'</h2><div class="deck-facts"><span class="deck-fact">'+escapeCardText(deck.fixed)+'</span><span class="deck-fact">'+escapeCardText(deck.playstyle)+'</span></div><div class="deck-section-jumps"><a href="#decklist">View Decklist</a><a href="#combo-lines">View Combo Lines</a></div></div></article>'+renderDecklist(deckLists[deck.id])+
+  content.innerHTML='<article class="deck-overview"><div class="deck-art '+deck.id+'"><img class="boss-art" src="'+deck.art+'" alt="'+escapeCardText(deck.boss)+' card artwork" loading="lazy"><b>'+escapeCardText(deck.boss)+'</b><small>'+escapeCardText(deck.name+' · '+deck.subtitle)+'</small></div><div class="deck-summary"><h2>'+escapeCardText(deck.name)+'</h2><div class="deck-facts"><span class="deck-fact">'+escapeCardText(deck.fixed)+'</span><span class="deck-fact">'+escapeCardText(deck.playstyle)+'</span></div><div class="deck-section-jumps"><a href="#decklist">View Decklist</a><a href="#starter-guide">Starter Guide</a><a href="#combo-lines">View Combo Lines</a></div></div></article>'+renderDecklist(deckLists[deck.id])+renderStarterGuide(deck)+
     '<section class="combo-tutorial'+(visual?' has-visual':'')+'" id="combo-lines"><div class="section-heading"><div><h2>Combo Lines</h2></div></div>'+
     '<div class="combo-tabs">'+deck.combos.map((item,i)=>'<button type="button" class="'+(i===activeCombo?'active':'')+'" aria-pressed="'+(i===activeCombo)+'" data-combo="'+i+'">'+(i+1)+'. '+escapeCardText(item.title)+'</button>').join('')+'</div><div class="line-card combo-view-'+(useVisualView()?'visual':'text')+'">'+(visual?'<div class="combo-view-toggle" role="group" aria-label="Combo display"><button type="button" data-combo-view="visual" aria-pressed="'+useVisualView()+'">Field view</button><button type="button" data-combo-view="text" aria-pressed="'+(!useVisualView())+'">Text view</button><button type="button" data-copy-combo>Copy link</button><span class="combo-copy-status" role="status"></span></div>':'')+markup+'</div></section>';
   loadDeckCardImages();
   setupDecklistSearch();
   content.querySelector('[data-copy-combo]')?.addEventListener('click',async()=>{writeDeckRoute();const status=content.querySelector('.combo-copy-status');try{const link=new URL(location.href);link.hash='combo-lines';await navigator.clipboard.writeText(link.href);status.textContent='Link copied';}catch(_){status.textContent='Copy the page address to share this step.';}});
   content.querySelectorAll('[data-combo-view]').forEach(button=>button.addEventListener('click',()=>{comboView=button.dataset.comboView;try{localStorage.setItem('bookOfMoonComboView',comboView)}catch(_){}renderDeck();content.querySelector('[data-combo-view="'+comboView+'"]').focus({preventScroll:true})}));
+  content.querySelectorAll('[data-start-combo]').forEach(button=>button.addEventListener('click',()=>{activeCombo=Number(button.dataset.startCombo);activeStep=0;writeDeckRoute(true);renderDeck();document.getElementById('combo-lines').scrollIntoView({behavior:'smooth',block:'start'});content.querySelector('[data-combo="'+activeCombo+'"]').focus({preventScroll:true})}));
   content.querySelectorAll('[data-combo]').forEach(button=>button.addEventListener('click',()=>{activeCombo=Number(button.dataset.combo);activeStep=0;writeDeckRoute(true);renderDeck();content.querySelector('[data-combo="'+activeCombo+'"]').focus()}));
   content.querySelectorAll('[data-visual-step]').forEach(button=>button.addEventListener('click',()=>{activeStep=Number(button.dataset.visualStep);writeDeckRoute();renderDeck();content.querySelector('[data-visual-step="'+activeStep+'"]').focus()}));
   content.querySelectorAll('.line-prev').forEach(button=>button.addEventListener('click',()=>{activeStep=Math.max(0,activeStep-1);writeDeckRoute();renderDeck();content.querySelector((useVisualView()?'.combo-visual-desktop':'.combo-text-only')+' .line-prev')?.focus({preventScroll:true})}));
