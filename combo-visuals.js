@@ -660,3 +660,41 @@ for (const key of Object.keys(window.comboVisuals).filter(k=>k.startsWith('yusei
 
 {const key='chronicles|Branded Fusion into Mirrorjade',visual=window.comboVisuals[key],piles=window.comboPileStates[key],zones=window.comboZoneStates[key];const done=visual.steps[2];done.flow={inputs:[{card:'Lubellion the Searing Dragon',qty:1},{card:'Despian Tragedy',qty:1}],action:'RESOLVE CHAIN',outputs:[],showSourceOnly:true};done.chain=[{card:'Lubellion the Searing Dragon',label:'Chain Link 1',description:'Discard Branded in Red at activation; Fusion Summon Mirrorjade on resolution.'},{card:'Despian Tragedy',label:'Chain Link 2',description:'Add Aluber to the hand.'}];visual.steps.splice(1,2,done);piles.splice(1,2,piles[2]);zones.splice(1,2,zones[2]);}
 {const key='crow|Full Armor Master with Twin Shadow follow-up',s=window.comboVisuals[key].steps[4];s.chain=[{card:'Blackwing - Boreastorm the Wicked Wind',label:'Chain Link 1',description:'Send Simoon from the Deck to the Graveyard.'},{card:'Black Feather Whirlwind',label:'Chain Link 2',description:'Special Summon Sudri from the Graveyard.'}];s.flow.showSourceOnly=true;}
+
+/* Extend the Stardust Dragon line into Shooting Star Dragon. */
+{
+  const key='yusei|Full-Speed Warrior into Stardust Dragon';
+  const visual=window.comboVisuals[key], piles=window.comboPileStates[key], zones=window.comboZoneStates[key];
+  const copy=value=>JSON.parse(JSON.stringify(value));
+  const before=copy(visual.steps[5].fieldAfter);
+  const formulaField=copy(before);
+  delete formulaField.monster2; delete formulaField.monster4;
+  formulaField.monster2={card:'Formula Synchron',materials:[]};
+  visual.steps.push({
+    flow:{inputs:[{card:'Jet Synchron',qty:1},{card:'Crossroad Sonic Chick',qty:1}],action:'SYNCHRO SUMMON',outputs:[{card:'Formula Synchron',qty:1}],showSourceOnly:false},
+    chain:[{card:'Formula Synchron',label:'Chain Link 1',description:'Draw 1 card. Jet Synchron’s optional search is declined.'}],
+    fieldAfter:formulaField
+  });
+  const formulaPiles=copy(piles[5]);
+  formulaPiles.grave.push({card:'Jet Synchron',qty:1});
+  formulaPiles.banished.push({card:'Crossroad Sonic Chick',qty:1});
+  piles.push(formulaPiles);
+  const formulaZone=copy(zones[5]);
+  formulaZone.hand.push({label:'Drawn card',frame:'any',type:'Any card',requirements:'The unidentified card drawn by Formula Synchron.',qty:1});
+  formulaZone.mainUnknownRemoved=(Number(formulaZone.mainUnknownRemoved)||0)+1;
+  formulaZone.extraRemoved.push({card:'Formula Synchron',qty:1});
+  zones.push(formulaZone);
+  const shootingField=copy(formulaField);
+  delete shootingField.monster2;
+  shootingField.monster1={card:'Shooting Star Dragon',materials:[]};
+  visual.steps.push({
+    flow:{inputs:[{card:'Stardust Dragon',qty:1},{card:'Formula Synchron',qty:1}],action:'SYNCHRO SUMMON',outputs:[{card:'Shooting Star Dragon',qty:1}],showSourceOnly:false},
+    fieldAfter:shootingField
+  });
+  const shootingPiles=copy(formulaPiles);
+  shootingPiles.grave.push({card:'Stardust Dragon',qty:1},{card:'Formula Synchron',qty:1});
+  piles.push(shootingPiles);
+  const shootingZone=copy(formulaZone);
+  shootingZone.extraRemoved.push({card:'Shooting Star Dragon',qty:1});
+  zones.push(shootingZone);
+}

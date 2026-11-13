@@ -525,6 +525,16 @@ decks.find(x=>x.id==="yusei").combos.push({"title":"Full-Speed Warrior into Star
 decks.find(x=>x.id==="akiza").combos.push({"title":"Red Rose into Black Rose Moonlight Dragon","hand":"Red Rose Dragon + White Rose Dragon","condition":"Start with an empty field. Roxrose Dragon and Basal Rose Shoot remain in the Deck; Black Rose Moonlight Dragon is in the Extra Deck. The opponent controls no Special Summoned monster, so Moonlight has no legal target on its Summon.","steps":["Normal Summon Red Rose Dragon.","Special Summon White Rose Dragon from your hand while you control a Dragon Tuner.","Synchro Summon Black Rose Moonlight Dragon using Level 3 Red Rose and Level 4 White Rose. Moonlight has no legal target in this illustration; decline White Rose’s optional effect.","Activate Red Rose Dragon’s effect to Special Summon Roxrose Dragon from the Deck. Moonlight is not named exactly Black Rose Dragon and is not a Plant Synchro, so Red Rose does not add Frozen Rose here.","Activate Roxrose Dragon to add Basal Rose Shoot from your Deck.","Activate Basal Rose Shoot to Special Summon White Rose Dragon from your Graveyard in Defense Position."],"result":"Black Rose Moonlight Dragon, Roxrose Dragon and White Rose Dragon on your field."});
 
 {const combo=decks.find(d=>d.id==='chronicles').combos.find(c=>c.title==='Branded Fusion into Mirrorjade');combo.steps.splice(1,2,"Activate Lubellion as Chain Link 1, discarding Branded in Red; activate Despian Tragedy as Chain Link 2. Resolve Tragedy to add Aluber, then resolve Lubellion: shuffle it and Fallen of Albaz into their respective Decks to Fusion Summon Mirrorjade.");}
+
+{
+  const combo=decks.find(d=>d.id==='yusei').combos.find(c=>c.title==='Full-Speed Warrior into Stardust Dragon');
+  combo.condition='Start with Full-Speed Warrior and another card to discard. The named searches, Stardust Dragon, Formula Synchron and Shooting Star Dragon must remain available.';
+  combo.steps.push(
+    'Synchro Summon Formula Synchron using Level 1 Jet Synchron and Level 1 Crossroad Sonic Chick. Jet is sent to the Graveyard; Crossroad is banished when it leaves the field. Activate Formula Synchron to draw 1 card; decline Jet Synchron’s optional search.',
+    'During your Main Phase, Synchro Summon Shooting Star Dragon using Level 8 Stardust Dragon and Level 2 Formula Synchron. Both materials go to the Graveyard.'
+  );
+  combo.result='Shooting Star Dragon, Level 2 Scrap Warrior, and Satellite Synchron on your field, plus the card drawn with Formula Synchron.';
+}
 const picker=document.getElementById('deck-picker'),content=document.getElementById('deck-content');let activeDeck=0,activeCombo=0,activeStep=0,deckSearchTerm='';
 const deckSearchDetails=new Map();
 let comboView='auto'; try{comboView=localStorage.getItem('bookOfMoonComboView')||'auto'}catch(_){}
